@@ -1,0 +1,16 @@
+.elements__heart-button {
+  flex-basis: 22px;
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../images/heart-icon.svg);
+  border: 0px;
+  background-color: white;
+  background-repeat: no-repeat;
+  margin: 30px 20px 30px auto;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.elements__heart-button:hover {
+  opacity: 0.6;
+}

@@ -1,0 +1,16 @@
+.elements {
+  width: calc(100% - (200px + 200px));
+  margin: 0 auto 67px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 282px);
+  gap: 20px 17px;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 933px) {
+  .elements {
+    width: calc(100% - (19px + 19px));
+  }
+}
