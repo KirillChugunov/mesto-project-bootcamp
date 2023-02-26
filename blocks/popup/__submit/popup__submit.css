@@ -1,5 +1,5 @@
 .popup__submit {
-  font-family: "Inter";
+  font-family: "Inter", Arial, sans-serif;
   max-width: calc(100% - (36px + 36px));
   min-height: 50px;
   margin: 31px 36px 37px 36px;

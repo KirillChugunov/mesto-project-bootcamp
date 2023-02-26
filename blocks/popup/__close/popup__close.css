@@ -1,16 +1,15 @@
 .popup__close {
-  width: 32px;
-  height: 32px;
-  font-family: "Inter";
-  font-size: 32px;
-  margin-right: -40px;
-  margin-top: -40px;
+  background-image:url(../../../images/pngCloseIcon.png);
+  width:32px;
+  height:32px;
+  border:none;
+  margin-top:-40px;
+  margin-right:-40px;
   align-self: flex-end;
-  font-weight: 900;
   z-index: 101;
-  background: none;
-  border: 0;
-  color: white;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .popup__close:hover {

@@ -9,65 +9,129 @@
   <body class="body">
     <div class="page">
       <header class="header">
-        <img src="./images/Vectorlogo_header.svg" class="header__logo" alt="логотип место">
+        <img
+          src="./images/Vectorlogo_header.svg"
+          class="header__logo"
+          alt="логотип место"
+        />
         <!-- <div class="header__line"></div> есть еще такой вариант, тогда не приходится подгонять отступ от лого под PP-->
-        </header>
+      </header>
       <main>
         <section class="profile">
-          <img class="profile__avatar" src="./images/imageJac-iv.jpg" alt="изображение Жак-Ив Кусто">
+          <img
+            class="profile__avatar"
+            src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg"
+            alt="изображение Жак-Ив Кусто"
+          />
           <div class="profile__info">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button"></button>
+            <button class="profile__edit-button" type="button"></button>
             <p class="profile__subtitle">Исследователь океана</p>
           </div>
-          <button class="add-button">
-          </button>
-      <div class="popup">
-<form class="popup__form">
-<button class="popup__close">&#x2715</button>
-<p class="popup__legend">Редактировать профиль</p>
-<input type="text" placeholder="Жак-Ив Кусто" class="popup__textinput" required>             
-<input type="text" placeholder="Исследователь океана" class="popup__textinput" required>
-<input class="popup__submit" type="submit" value="Сохранить">
-</form>
-</div>
+          <button class="add-button" type="button"></button>
         </section>
         <section class="elements">
-          <ul class="elements__card">
-            <li><img src="./images/karachevsktrue.jpg" class="elements__photo" alt="Карачаевск фото"></li>
-            <li><div class="elements__discription"><p class="elements__caption">Карачаевск</p>
-            <button class="elements__heart-button"></button></div></li>
-          </ul>
-          <ul class="elements__card">
-            <li><img src="./images/elbrus.jpg" class="elements__photo" alt="Эльбрус фото"></li>
-            <li><div class="elements__discription"><p class="elements__caption">Гора Эльбрус</p>
-            <button class="elements__heart-button"></button></div></li>
-          </ul>
-          <ul class="elements__card">
-            <li><img src="./images/dombay.jpg" class="elements__photo" alt="Домбай фото"></li>
-            <li><div class="elements__discription"><p class="elements__caption">Домбай</p>
-            <button class="elements__heart-button"></button></div></li>
-          </ul>
-          <ul class="elements__card">
-            <li><img src="./images/elbrus.jpg" class="elements__photo" alt="Эльбрус фото"></li>
-            <li><div class="elements__discription"><p class="elements__caption">Гора Эльбрус</p>
-            <button class="elements__heart-button"></button></div></li>
-          </ul>
-          <ul class="elements__card">
-            <li><img src="./images/dombay.jpg" class="elements__photo" alt="Домбай фото"></li>
-            <li><div class="elements__discription"><p class="elements__caption">Домбай</p>
-            <button class="elements__heart-button"></button></div></li>
-          </ul>
-          <ul class="elements__card">
-            <li><img src="./images/karachevsktrue.jpg" class="elements__photo" alt="Карачаевск фото"></li>
-            <li><div class="elements__discription"><p class="elements__caption">Карачаево-Черкессия</p>
-                      <button class="elements__heart-button"></button></div></li>
-          </ul>
-                  </section>
+          <div class="elements__card">
+            <img
+              src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg"
+              class="elements__photo"
+              alt="Карачаевск фото"
+            />
+
+            <div class="elements__discription">
+              <h2 class="elements__caption">Карачаевск</h2>
+              <button type="button" class="elements__heart-button"></button>
+            </div>
+          </div>
+          <div class="elements__card">
+            <img
+              src="./images/elbrus.jpg"
+              class="elements__photo"
+              alt="Эльбрус фото"
+            />
+
+            <div class="elements__discription">
+              <h2 class="elements__caption">Гора Эльбрус</h2>
+              <button type="button" class="elements__heart-button"></button>
+            </div>
+          </div>
+          <div class="elements__card">
+            <img
+              src="./images/dombay.jpg"
+              class="elements__photo"
+              alt="Домбай фото"
+            />
+
+            <div class="elements__discription">
+              <h2 class="elements__caption">Домбай</h2>
+              <button type="button" class="elements__heart-button"></button>
+            </div>
+          </div>
+          <div class="elements__card">
+            <img
+              src="./images/elbrus.jpg"
+              class="elements__photo"
+              alt="Эльбрус фото"
+            />
+
+            <div class="elements__discription">
+              <h2 class="elements__caption">Гора Эльбрус</h2>
+              <button type="button" class="elements__heart-button"></button>
+            </div>
+          </div>
+          <div class="elements__card">
+            <img
+              src="./images/dombay.jpg"
+              class="elements__photo"
+              alt="Домбай фото"
+            />
+
+            <div class="elements__discription">
+              <h2 class="elements__caption">Домбай</h2>
+              <button type="button" class="elements__heart-button"></button>
+            </div>
+          </div>
+          <div class="elements__card">
+            <img
+              src="./images/karachevsktrue.jpg"
+              class="elements__photo"
+              alt="Карачаевск фото"
+            />
+
+            <div class="elements__discription">
+              <h2 class="elements__caption">Карачаево-Черкессия</h2>
+              <button type="button" class="elements__heart-button"></button>
+            </div>
+          </div>
+        </section>
       </main>
       <footer class="footer">
-        <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
+        <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
     </div>
+    <div class="popup">
+      <form class="popup__form" name="profile_popup_form">
+        <button class="popup__close" type="button"></button>
+        <h2 class="popup__legend">Редактировать профиль</h2>
+        <input
+          name="pupup__name"
+          type="text"
+          value="Имя"
+          class="popup__textinput form__field_title"
+          placeholder="Имя"
+        />
+
+        <input
+          type="text"
+          name="popup__profession"
+          value="Профессия"
+          placeholder="Профессия"
+          class="popup__textinput form__field_subtitle"
+          required
+        />
+        <button class="popup__submit" type="submit">Сохранить</button>
+      </form>
+    </div>
+    <script src="./javascript.js"></script>
   </body>
 </html>
