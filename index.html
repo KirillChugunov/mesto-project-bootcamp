@@ -28,7 +28,7 @@
             <button class="profile__edit-button" type="button"></button>
             <p class="profile__subtitle">Исследователь океана</p>
           </div>
-          <button class="add-button" type="button"></button>
+          <button class="profile__add-button" type="button"></button>
         </section>
         <section class="elements">
           <div class="elements__card">
@@ -37,7 +37,6 @@
               class="elements__photo"
               alt="Карачаевск фото"
             />
-
             <div class="elements__discription">
               <h2 class="elements__caption">Карачаевск</h2>
               <button type="button" class="elements__heart-button"></button>
@@ -109,28 +108,53 @@
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
     </div>
-    <div class="popup">
-      <form class="popup__form" name="profile_popup_form">
-        <button class="popup__close" type="button"></button>
-        <h2 class="popup__legend">Редактировать профиль</h2>
-        <input
+    <div class="popup popup__profile-edit">
+      <div class="popup__container">
+           <button class="popup__close popup__close_edit-profile" type="reset"></button>
+           <h3 class="popup__legend">Редактировать профиль</h3>
+      <form class="popup__form profile_popup_form" name="profile_popup_form">
+                 <input
           name="pupup__name"
           type="text"
           value="Имя"
-          class="popup__textinput form__field_title"
+          class="popup__textinput form__field_profile_title"
           placeholder="Имя"
         />
-
         <input
           type="text"
           name="popup__profession"
           value="Профессия"
           placeholder="Профессия"
-          class="popup__textinput form__field_subtitle"
+          class="popup__textinput form__field_profile_subtitle"
           required
         />
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
+      </div>
+    </div>
+    <div class="popup popup__add-element">
+      <div class="popup__container">
+           <button class="popup__close popup__close_add-element" type="button"></button>
+           <h3 class="popup__legend">Редактировать профиль</h3>
+           <form class="popup__form" name="profile_popup_form">
+                 <input
+          name="pupup__name"
+          type="text"
+          value="Имя"
+          class="popup__textinput form__field_elements_title"
+          placeholder="Имя"
+        />
+        <input
+          type="text"
+          name="popup__profession"
+          value="Профессия"
+          placeholder="Профессия"
+          class="popup__textinput form__field_elements_subtitle"
+          required
+        />
+        <button class="popup__submit" type="submit">Сохранить</button>
+      </form>
+      </div>
     </div>
     <script src="./javascript.js"></script>
   </body>
