@@ -31,7 +31,9 @@
           <button class="profile__add-button" type="button"></button>
         </section>
         <section class="elements">
-          <div class="elements__card">
+          <template id="element__template">
+            <div class="elements__card">
+            <button class="elements__delete-button" type="button"></button>
             <img
               src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg"
               class="elements__photo"
@@ -42,66 +44,8 @@
               <button type="button" class="elements__heart-button"></button>
             </div>
           </div>
-          <div class="elements__card">
-            <img
-              src="./images/elbrus.jpg"
-              class="elements__photo"
-              alt="Эльбрус фото"
-            />
-
-            <div class="elements__discription">
-              <h2 class="elements__caption">Гора Эльбрус</h2>
-              <button type="button" class="elements__heart-button"></button>
-            </div>
-          </div>
-          <div class="elements__card">
-            <img
-              src="./images/dombay.jpg"
-              class="elements__photo"
-              alt="Домбай фото"
-            />
-
-            <div class="elements__discription">
-              <h2 class="elements__caption">Домбай</h2>
-              <button type="button" class="elements__heart-button"></button>
-            </div>
-          </div>
-          <div class="elements__card">
-            <img
-              src="./images/elbrus.jpg"
-              class="elements__photo"
-              alt="Эльбрус фото"
-            />
-
-            <div class="elements__discription">
-              <h2 class="elements__caption">Гора Эльбрус</h2>
-              <button type="button" class="elements__heart-button"></button>
-            </div>
-          </div>
-          <div class="elements__card">
-            <img
-              src="./images/dombay.jpg"
-              class="elements__photo"
-              alt="Домбай фото"
-            />
-
-            <div class="elements__discription">
-              <h2 class="elements__caption">Домбай</h2>
-              <button type="button" class="elements__heart-button"></button>
-            </div>
-          </div>
-          <div class="elements__card">
-            <img
-              src="./images/karachevsktrue.jpg"
-              class="elements__photo"
-              alt="Карачаевск фото"
-            />
-
-            <div class="elements__discription">
-              <h2 class="elements__caption">Карачаево-Черкессия</h2>
-              <button type="button" class="elements__heart-button"></button>
-            </div>
-          </div>
+        </template> 
+          
         </section>
       </main>
       <footer class="footer">
@@ -135,24 +79,24 @@
     <div class="popup popup__add-element">
       <div class="popup__container">
            <button class="popup__close popup__close_add-element" type="button"></button>
-           <h3 class="popup__legend">Редактировать профиль</h3>
-           <form class="popup__form" name="profile_popup_form">
+           <h3 class="popup__legend">Новое место</h3>
+           <form class="popup__form" name="element_popup_form">
                  <input
-          name="pupup__name"
+          name="pupup__elemnt-name"
           type="text"
-          value="Имя"
+          value="Название"
           class="popup__textinput form__field_elements_title"
-          placeholder="Имя"
+          placeholder="Название"
         />
         <input
           type="text"
-          name="popup__profession"
-          value="Профессия"
-          placeholder="Профессия"
+          name="popup__elemnt-link"
+          value="Ссылка на картинку"
+          placeholder="Ссылка на картинку"
           class="popup__textinput form__field_elements_subtitle"
           required
         />
-        <button class="popup__submit" type="submit">Сохранить</button>
+        <button class="popup__submit elemnt__submit" type="submit">Сохранить</button>
       </form>
       </div>
     </div>
