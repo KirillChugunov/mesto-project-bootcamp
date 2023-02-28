@@ -10,6 +10,7 @@ const popupelement = document.querySelector(".popup__add-element");
 const popupeditclosebutton = document.querySelector (".popup__close_edit-profile");
 const popupelementclosebutton = document.querySelector (".popup__close_add-element");
 const popupEditProfileForm = document.querySelector(".profile_popup_form");
+const popupBigImg = document.querySelector(".img-popup");
 
 ////////////////////Функция открытия попапа////////////////////
 function openPopup(popup) {
@@ -92,11 +93,40 @@ function buildcard(element) {
   const placeElement = elementsTemplate.querySelector(".elements__card").cloneNode(true);
   //Заполнили название фото
   placeElement.querySelector(".elements__caption").textContent = element.name;
-  //Заполнили новое фото
-  placeElement.querySelector(".elements__photo").src = element.link;
-  //Получили карточку
+  //Нашли фото в карточке:
+  const placeimg = placeElement.querySelector(".elements__photo");
+  //Заполнили фото и атрибут alt
+  placeimg.src = element.link;
+  placeimg.alt = placeElement.textContent;
+  //Повесили слушателя на изображение на открытие попапа
+  placeimg.addEventListener("click",function(){
+   console.log("i am alive2")
+   openPopup(popupBigImg);
+   const bigimg = document.querySelector(".img-popup__figure");
+   bigimg.src = placeimg.src;
+   const bigcaption = document.querySelector(".img-popup__caption");
+   bigcaption.textContent = element.name;  
+  });
   return placeElement;
 }
+// Функция удаления карточки:
+  //Нашли кнопку удаления
+  // const imgdeletebutton = document.querySelector(".elements__delete-button");
+  // //Повесили слушателя на удаление:
+  // imgdeletebutton.addEventListener('click', function () {
+  //   const carditem = imgdeletebutton.closest('.elements__card');
+  //   carditem.remove();
+  // }); 
+  // // imgdeletebutton.addEventListener("click", function () {
+  // //   const carditem = imgdeletebutton.closest('.elements__card');
+  // //   carditem.remove();
+  // }); 
+// Функция закрытия попапа с изображением
+
+const placeimgclosebutton = document.querySelector(".img-popup__close");
+placeimgclosebutton.addEventListener("click",function(){
+  closePopup(popupBigImg);
+ });
 
 //Функция добавления карты в верстку
 function createCard(element) {
