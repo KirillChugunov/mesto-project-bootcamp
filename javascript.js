@@ -107,21 +107,15 @@ function buildcard(element) {
    const bigcaption = document.querySelector(".img-popup__caption");
    bigcaption.textContent = element.name;  
   });
+   // Нашли кнопку удаления
+   const imgdeletebutton = placeElement.querySelector(".elements__delete-button");
+   //Повесили слушателя на удаление:
+   imgdeletebutton.addEventListener('click', function () {
+     const carditem = imgdeletebutton.closest('.elements__card');
+     carditem.remove();
+   }); 
   return placeElement;
 }
-// Функция удаления карточки:
-  //Нашли кнопку удаления
-  // const imgdeletebutton = document.querySelector(".elements__delete-button");
-  // //Повесили слушателя на удаление:
-  // imgdeletebutton.addEventListener('click', function () {
-  //   const carditem = imgdeletebutton.closest('.elements__card');
-  //   carditem.remove();
-  // }); 
-  // // imgdeletebutton.addEventListener("click", function () {
-  // //   const carditem = imgdeletebutton.closest('.elements__card');
-  // //   carditem.remove();
-  // }); 
-// Функция закрытия попапа с изображением
 
 const placeimgclosebutton = document.querySelector(".img-popup__close");
 placeimgclosebutton.addEventListener("click",function(){
@@ -156,6 +150,14 @@ function addNewCard(e) {
 const addimgbutton = document.querySelector(".elemnt__submit")
 popupelement.addEventListener("submit",addNewCard);
 
+// Функция удаления карточки:
+  // Нашли кнопку удаления
+  const imgdeletebutton = document.querySelector(".elements__delete-button");
+  //Повесили слушателя на удаление:
+  imgdeletebutton.addEventListener('click', function () {
+    const carditem = imgdeletebutton.closest('.elements__card');
+    carditem.remove();
+  }); 
 
 
 
