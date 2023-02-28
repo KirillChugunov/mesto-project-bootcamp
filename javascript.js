@@ -114,6 +114,13 @@ function buildcard(element) {
      const carditem = imgdeletebutton.closest('.elements__card');
      carditem.remove();
    }); 
+   //Нашли кнопку лайка 
+   const likebutton = placeElement.querySelector(".elements__heart-button");
+   //Повесили слушателя на лайк:
+   likebutton.addEventListener('click', function () {
+    likebutton.classList.toggle("elements__heart-button_active");
+    console.log("i am alive");
+  }); 
   return placeElement;
 }
 
@@ -152,12 +159,12 @@ popupelement.addEventListener("submit",addNewCard);
 
 // Функция удаления карточки:
   // Нашли кнопку удаления
-  const imgdeletebutton = document.querySelector(".elements__delete-button");
-  //Повесили слушателя на удаление:
-  imgdeletebutton.addEventListener('click', function () {
-    const carditem = imgdeletebutton.closest('.elements__card');
-    carditem.remove();
-  }); 
+  // const imgdeletebutton = document.querySelector(".elements__delete-button");
+  // //Повесили слушателя на удаление:
+  // imgdeletebutton.addEventListener('click', function () {
+  //   const carditem = imgdeletebutton.closest('.elements__card');
+  //   carditem.remove();
+  // }); 
 
 
 

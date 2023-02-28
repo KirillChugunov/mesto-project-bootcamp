@@ -5,6 +5,8 @@
   margin-left: auto;
   border:none;
   background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .profile__add-button:hover {
