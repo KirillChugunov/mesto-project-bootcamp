@@ -1,24 +1,33 @@
-const popuprofile = document.querySelector(".popup__profile-edit");
-const buttoneditProfile = document.querySelector(".profile__edit-button");
-const editProfileclosebutton = document.querySelector(
+/////////////////Переменные/////////////////////////////////////
+const PopuProfile = document.querySelector(".popup__profile-edit");
+const ButtonEditProfile = document.querySelector(".profile__edit-button");
+const EditProfileCloseButton = document.querySelector(
   ".popup__close_edit-profile"
 );
-const profileTitle = document.querySelector(".profile__title");
-const profileSubtitle = document.querySelector(".profile__subtitle");
-const popupFormTitle = document.querySelector(".form__field_profile_title");
-const popupFormSubtitle = document.querySelector(
+const ProfileTitle = document.querySelector(".profile__title");
+const ProfileSubtitle = document.querySelector(".profile__subtitle");
+const PopupFormTitle = document.querySelector(".form__field_profile_title");
+const PopupFormSubtitle = document.querySelector(
   ".form__field_profile_subtitle"
 );
-const buttonAddprofile = document.querySelector(".profile__add-button");
-const popupelement = document.querySelector(".popup__add-element");
-const popupeditclosebutton = document.querySelector(
+const ButtonAddProfile = document.querySelector(".profile__add-button");
+const PopupElement = document.querySelector(".popup__add-element");
+const PopupEditCloseButton = document.querySelector(
   ".popup__close_edit-profile"
 );
-const popupelementclosebutton = document.querySelector(
+const PopupElementCloseButton = document.querySelector(
   ".popup__close_add-element"
 );
-const popupEditProfileForm = document.querySelector(".profile_popup_form");
-const popupBigImg = document.querySelector(".img-popup");
+const PopupEditProfileForm = document.querySelector(".profile_popup_form");
+const PopupBigImg = document.querySelector(".img-popup");
+const SectionElements = document.querySelector(".elements");
+const ElementsTemplate = document.querySelector("#element__template").content;
+const PlaceImgCloseButton = document.querySelector(".img-popup__close");
+const AddImgFormTitle = document.querySelector(".form__field_elements_title");
+const AddCaptionFormTitle = document.querySelector(
+  ".form__field_elements_subtitle"
+);
+const AddImgbutton = document.querySelector(".elemnt__submit");
 
 ////////////////////Функция открытия попапа////////////////////
 function openPopup(popup) {
@@ -30,33 +39,33 @@ function closePopup(popup) {
 }
 
 /////////////////////ВЫЗОВ ПЕРВОГО ПОПАПА////////////////////////////
-buttoneditProfile.addEventListener("click", function () {
-  openPopup(popuprofile);
-  popupFormTitle.value = profileTitle.textContent;
-  popupFormSubtitle.value = profileSubtitle.textContent;
+ButtonEditProfile.addEventListener("click", function () {
+  openPopup(PopuProfile);
+  PopupFormTitle.value = ProfileTitle.textContent;
+  PopupFormSubtitle.value = ProfileSubtitle.textContent;
 });
 /////////////////////////ВЫЗОВ ВТОРОГО ПОПАПА//////////////////////////
-buttonAddprofile.addEventListener("click", function () {
-  openPopup(popupelement);
+ButtonAddProfile.addEventListener("click", function () {
+  openPopup(PopupElement);
 });
 /////////////////////////ЗАКРЫТИЕ ПЕРВОГО ПОПАПА/////////////////////////
-popupeditclosebutton.addEventListener("click", function () {
-  closePopup(popuprofile);
+PopupEditCloseButton.addEventListener("click", function () {
+  closePopup(PopuProfile);
 });
 
 /////////////////////////ЗАКРЫТИЕ ВТОРОГО ПОПАПА/////////////////////////
-popupelementclosebutton.addEventListener("click", function () {
-  closePopup(popupelement);
+PopupElementCloseButton.addEventListener("click", function () {
+  closePopup(PopupElement);
 });
 //////////////////////////САМБИТ ПЕРВОГО ПОПАПА////////////////////////////
 function handleSubmitTitleForm(e) {
   e.preventDefault();
-  profileTitle.textContent = popupFormTitle.value;
-  profileSubtitle.textContent = popupFormSubtitle.value;
-  closePopup(popuprofile);
+  ProfileTitle.textContent = PopupFormTitle.value;
+  ProfileSubtitle.textContent = PopupFormSubtitle.value;
+  closePopup(PopuProfile);
 }
 
-popupEditProfileForm.addEventListener("submit", handleSubmitTitleForm);
+PopupEditProfileForm.addEventListener("submit", handleSubmitTitleForm);
 
 //////////////////ДОБАВЛЕНИЕ ИЗОБРАЖЕНИЙ/////////////////////////
 
@@ -89,60 +98,55 @@ const initialCards = [
   },
 ];
 
-// Нашли секцию Elements:
-const sectionElements = document.querySelector(".elements");
-// Нашли заготовку:
-const elementsTemplate = document.querySelector("#element__template").content;
-//Создаем функцию для создания и возвращения карточки
+//////////////////////////////////////Функция для создания и возвращения карточки///////////////////////////////////
 function buildcard(element) {
   //Клонировали заготовку
-  const placeElement = elementsTemplate
+  const PlaceElement = ElementsTemplate
     .querySelector(".elements__card")
     .cloneNode(true);
   //Заполнили название фото
-  placeElement.querySelector(".elements__caption").textContent = element.name;
+  PlaceElement.querySelector(".elements__caption").textContent = element.name;
   //Нашли фото в карточке:
-  const placeimg = placeElement.querySelector(".elements__photo");
+  const PlaceImg = PlaceElement.querySelector(".elements__photo");
   //Заполнили фото и атрибут alt
-  placeimg.src = element.link;
-  placeimg.alt = placeElement.textContent;
+  PlaceImg.src = element.link;
+  PlaceImg.alt = PlaceElement.textContent;
   //Повесили слушателя на изображение на открытие попапа
-  placeimg.addEventListener("click", function () {
+  PlaceImg.addEventListener("click", function () {
     console.log("i am alive2");
-    openPopup(popupBigImg);
-    const bigimg = document.querySelector(".img-popup__figure");
-    bigimg.src = placeimg.src;
-    const bigcaption = document.querySelector(".img-popup__caption");
-    bigcaption.textContent = element.name;
+    openPopup(PopupBigImg);
+    const BigImg = document.querySelector(".img-popup__figure");
+    BigImg.src = PlaceImg.src;
+    const BigCaption = document.querySelector(".img-popup__caption");
+    BigCaption.textContent = element.name;
   });
   // Нашли кнопку удаления
-  const imgdeletebutton = placeElement.querySelector(
+  const ImgDeleteButton = PlaceElement.querySelector(
     ".elements__delete-button"
   );
   //Повесили слушателя на удаление:
-  imgdeletebutton.addEventListener("click", function () {
-    const carditem = imgdeletebutton.closest(".elements__card");
-    carditem.remove();
+  ImgDeleteButton.addEventListener("click", function () {
+    const CardItem = ImgDeleteButton.closest(".elements__card");
+    CardItem.remove();
   });
   //Нашли кнопку лайка
-  const likebutton = placeElement.querySelector(".elements__heart-button");
+  const LikeButton = PlaceElement.querySelector(".elements__heart-button");
   //Повесили слушателя на лайк:
-  likebutton.addEventListener("click", function () {
-    likebutton.classList.toggle("elements__heart-button_active");
+  LikeButton.addEventListener("click", function () {
+    LikeButton.classList.toggle("elements__heart-button_active");
     console.log("i am alive");
   });
-  return placeElement;
+  return PlaceElement;
 }
 
-const placeimgclosebutton = document.querySelector(".img-popup__close");
-placeimgclosebutton.addEventListener("click", function () {
-  closePopup(popupBigImg);
+PlaceImgCloseButton.addEventListener("click", function () {
+  closePopup(PopupBigImg);
 });
 
 //Функция добавления карты в верстку
 function createCard(element) {
   const card = buildcard(element);
-  sectionElements.prepend(card);
+  SectionElements.prepend(card);
 }
 
 //Добавляем карты из массива:
@@ -151,21 +155,15 @@ function gridBuilder() {
 }
 gridBuilder();
 //Работает!!!!!
-const addimgFormTitle = document.querySelector(".form__field_elements_title");
-const addCaptionFormTitle = document.querySelector(
-  ".form__field_elements_subtitle"
-);
 
 function addNewCard(e) {
   e.preventDefault();
   const card = {
-    name: addimgFormTitle.value,
-    link: addCaptionFormTitle.value,
+    name: AddImgFormTitle.value,
+    link: AddCaptionFormTitle.value,
   };
   createCard(card);
   console.log("I AM ALIVE!!!1");
-  closePopup(popupelement);
+  closePopup(PopupElement);
 }
-const addimgbutton = document.querySelector(".elemnt__submit");
-popupelement.addEventListener("submit", addNewCard);
-
+PopupElement.addEventListener("submit", addNewCard);

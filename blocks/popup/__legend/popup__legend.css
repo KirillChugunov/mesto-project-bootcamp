@@ -10,3 +10,11 @@
   line-height: 22px;
 }
 
+@media screen and (max-width: 933px) {
+  .popup__legend {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 25px auto 75px auto;
+  }
+}
+
