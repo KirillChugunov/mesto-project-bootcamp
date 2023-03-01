@@ -5,7 +5,7 @@
   width: 100%;
   margin: 0 auto 0 auto;
   text-rendering: optimizeLegibility;
-  display:flex;
+  display: flex;
   flex-direction: column;
   min-height: 100vh;
 }

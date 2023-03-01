@@ -101,9 +101,8 @@ const initialCards = [
 //////////////////////////////////////Функция для создания и возвращения карточки///////////////////////////////////
 function buildcard(element) {
   //Клонировали заготовку
-  const PlaceElement = ElementsTemplate
-    .querySelector(".elements__card")
-    .cloneNode(true);
+  const PlaceElement =
+    ElementsTemplate.querySelector(".elements__card").cloneNode(true);
   //Заполнили название фото
   PlaceElement.querySelector(".elements__caption").textContent = element.name;
   //Нашли фото в карточке:
