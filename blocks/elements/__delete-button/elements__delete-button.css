@@ -1,6 +1,6 @@
 .elements__delete-button {
-  background-image:url(../../../images/deletebutton.png);
-  position:absolute;
+  background-image: url(../../../images/deletebutton.png);
+  position: absolute;
   top: 20px;
   right: 20px;
   width: 18px;
@@ -12,5 +12,6 @@
 }
 
 .elements__delete-button:hover {
-opacity:0.6;
+  opacity: 0.6;
+  cursor: pointer;
 }

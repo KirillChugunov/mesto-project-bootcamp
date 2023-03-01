@@ -11,5 +11,6 @@
 @media screen and (max-width: 933px) {
   .elements {
     width: calc(100% - (19px + 19px));
+    margin-bottom: 48px;
   }
 }

@@ -1,113 +1,83 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="pages/index.css" />
-    <title>Проект: Место</title>
-  </head>
-  <body class="body">
-    <div class="page">
-      <header class="header">
-        <img
-          src="./images/Vectorlogo_header.svg"
-          class="header__logo"
-          alt="логотип место"
-        />
-        <!-- <div class="header__line"></div> есть еще такой вариант, тогда не приходится подгонять отступ от лого под PP-->
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="pages/index.css" />
+  <title>Проект: Место</title>
+</head>
+
+<body class="body">
+  <div class="page">
+    <header class="header">
+      <img src="./images/Vectorlogo_header.svg" class="header__logo" alt="логотип место" />
       </header>
-      <main>
-        <section class="profile">
-          <img
-            class="profile__avatar"
-            src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg"
-            alt="изображение Жак-Ив Кусто"
-          />
-          <div class="profile__info">
-            <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button" type="button"></button>
-            <p class="profile__subtitle">Исследователь океана</p>
-          </div>
-          <button class="profile__add-button" type="button"></button>
-        </section>
-        <section class="elements">
-          <template id="element__template">
-            <div class="elements__card">
+    <main class="main">
+      <section class="profile">
+        <img class="profile__avatar" src="./images/imageJac-iv.jpg"
+          alt="изображение Жак-Ив Кусто" />
+        <div class="profile__info">
+          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <button class="profile__edit-button" type="button"></button>
+          <p class="profile__subtitle">Исследователь океана</p>
+        </div>
+        <button class="profile__add-button" type="button"></button>
+      </section>
+      <section class="elements">
+        <template id="element__template">
+          <div class="elements__card">
             <button class="elements__delete-button" type="button"></button>
-            <img
-              src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg"
-              class="elements__photo"
-              alt="Карачаевск фото"
-            />
+            <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg"
+              class="elements__photo" alt="Карачаевск фото" />
             <div class="elements__discription">
               <h2 class="elements__caption">Карачаевск</h2>
               <button type="button" class="elements__heart-button"></button>
             </div>
           </div>
-        </template> 
-          
-        </section>
-      </main>
-      <footer class="footer">
-        <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-      </footer>
-    </div>
-    <div class="popup popup__profile-edit">
-      <div class="popup__container">
-           <button class="popup__close popup__close_edit-profile" type="reset"></button>
-           <h3 class="popup__legend">Редактировать профиль</h3>
+        </template>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+    </footer>
+  </div>
+  <div class="popup popup__profile-edit">
+    <div class="popup__container">
+      <button class="popup__close popup__close_edit-profile" type="reset"></button>
+      <h3 class="popup__legend">Редактировать профиль</h3>
       <form class="popup__form profile_popup_form" name="profile_popup_form">
-                 <input
-          name="pupup__name"
-          type="text"
-          value="Имя"
-          class="popup__textinput form__field_profile_title"
-          placeholder="Имя"
-        />
-        <input
-          type="text"
-          name="popup__profession"
-          value="Профессия"
-          placeholder="Профессия"
-          class="popup__textinput form__field_profile_subtitle"
-          required
-        />
+        <input name="pupup__name" type="text" value="Имя" class="popup__textinput form__field_profile_title"
+          placeholder="Имя" />
+        <input type="text" name="popup__profession" value="Профессия" placeholder="Профессия"
+          class="popup__textinput form__field_profile_subtitle" required />
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
-      </div>
     </div>
-    <div class="popup popup__add-element">
-      <div class="popup__container">
-           <button class="popup__close popup__close_add-element" type="button"></button>
-           <h3 class="popup__legend">Новое место</h3>
-           <form class="popup__form" name="element_popup_form">
-                 <input
-          name="pupup__elemnt-name"
-          type="text"
-          value="Название"
-          class="popup__textinput form__field_elements_title"
-          placeholder="Название"
-        />
-        <input
-          type="text"
-          name="popup__elemnt-link"
-          value="Ссылка на картинку"
-          placeholder="Ссылка на картинку"
-          class="popup__textinput form__field_elements_subtitle"
-          required
-        />
+  </div>
+  <div class="popup popup__add-element">
+    <div class="popup__container">
+      <button class="popup__close popup__close_add-element" type="button"></button>
+      <h3 class="popup__legend">Новое место</h3>
+      <form class="popup__form" name="element_popup_form">
+        <input name="pupup__elemnt-name" type="text" value="Название"
+          class="popup__textinput form__field_elements_title" placeholder="Название" />
+        <input type="text" name="popup__elemnt-link" value="Ссылка на картинку" placeholder="Ссылка на картинку"
+          class="popup__textinput form__field_elements_subtitle" required />
         <button class="popup__submit elemnt__submit" type="submit">Сохранить</button>
       </form>
-      </div>
     </div>
-    <div class="popup img-popup">
-      <div class="img-popup__container">
+  </div>
+  <div class="popup img-popup">
+    <div class="img-popup__container">
       <button class="popup__close img-popup__close" type="button"></button>
       <figure class="img-popup__figure-container">
-      <img class="img-popup__figure" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg" alt="">
-      <figcaption class="img-popup__caption">ssssssss</figcaption>
-      </div>
+        <img class="img-popup__figure"
+          src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg" alt="">
+        <figcaption class="img-popup__caption">ssssssss</figcaption>
     </div>
-    <script src="./javascript.js"></script>
-  </body>
+  </div>
+  <script src="./javascript.js"></script>
+</body>
+
 </html>

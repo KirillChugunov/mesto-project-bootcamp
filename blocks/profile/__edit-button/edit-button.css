@@ -8,15 +8,18 @@
   background-position: center;
   margin-left: 18px;
   align-self: center;
+  padding:0;
 }
 
 .profile__edit-button:hover {
   opacity: 0.6;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1070px) {
   .profile__edit-button {
     margin-left: 10px;
+    background-image: url(../../../images/Vectorpen.svg);
     min-width: 18px;
     min-height: 18px;
   }

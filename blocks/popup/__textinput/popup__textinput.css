@@ -11,7 +11,11 @@
   border-left: 0;
   border-right: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  margin: 0 auto 17px auto;
+  margin: 0 auto 30px auto;
+}
+
+.popup__textinput:last-of-type {
+  margin: 0 auto 0 auto;
 }
 
 @media screen and (max-width: 600px) {
