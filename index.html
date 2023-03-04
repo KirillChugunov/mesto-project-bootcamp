@@ -45,11 +45,13 @@
     <div class="popup__container">
       <button class="popup__close popup__close_edit-profile" type="reset"></button>
       <h3 class="popup__legend">Редактировать профиль</h3>
-      <form class="popup__form profile_popup_form" name="profile_popup_form">
-        <input name="pupup__name" type="text" value="Имя" class="popup__textinput form__field_profile_title"
-          placeholder="Имя" />
-        <input type="text" name="popup__profession" value="Профессия" placeholder="Профессия"
-          class="popup__textinput form__field_profile_subtitle" required />
+      <form class="popup__form profile_popup_form" name="profile_popup_form" novalidate>
+        <input name="pupup__name" type="text" class="popup__textinput form__field_profile_title"
+          placeholder="Имя" required minlength="2" maxlength="40" id="imput-profile-title">
+          <span class="form__input-error email-input-error" >1111111111111111111111</span>
+        <input type="text" name="popup__profession" placeholder="Профессия"
+          class="popup__textinput form__field_profile_subtitle" required minlength="2" maxlength="40">
+          <span class="form__input-error email-input-error" id="imput-profile-subtitle">11111</span>
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
     </div>
@@ -59,10 +61,9 @@
       <button class="popup__close popup__close_add-element" type="button"></button>
       <h3 class="popup__legend">Новое место</h3>
       <form class="popup__form" name="element_popup_form">
-        <input name="pupup__elemnt-name" type="text" value="Название"
-          class="popup__textinput form__field_elements_title" placeholder="Название" />
-        <input type="text" name="popup__elemnt-link" value="Ссылка на картинку" placeholder="Ссылка на картинку"
-          class="popup__textinput form__field_elements_subtitle" required />
+        <input name="pupup__elemnt-name" type="text" class="popup__textinput form__field_elements_title" placeholder="Название" required minlength="2" maxlength="40">
+        <input type="text" name="popup__elemnt-link" placeholder="Ссылка на картинку"
+          class="popup__textinput form__field_elements_subtitle" required minlength="2" maxlength="40">
         <button class="popup__submit elemnt__submit" type="submit">Сохранить</button>
       </form>
     </div>

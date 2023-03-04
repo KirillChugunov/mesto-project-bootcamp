@@ -1,0 +1,3 @@
+.form__field_profile_title:invalid {
+  border-bottom: 1px solid #FF0000;
+}

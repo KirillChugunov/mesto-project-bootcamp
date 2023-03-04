@@ -1,4 +1,5 @@
 /////////////////Переменные/////////////////////////////////////
+const fullDocument = document.querySelector(".body");
 const PopuProfile = document.querySelector(".popup__profile-edit");
 const ButtonEditProfile = document.querySelector(".profile__edit-button");
 const EditProfileCloseButton = document.querySelector(
@@ -32,11 +33,25 @@ const AddImgbutton = document.querySelector(".elemnt__submit");
 ////////////////////Функция открытия попапа////////////////////
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  fullDocument.addEventListener('keydown', function (e) {
+    if (e.key === "Escape") {
+    console.log(e.key);
+    console.log("itsworking");
+    closePopup(popup);
+   }});
 }
 ////////////////////Функция закрытия попапа/////////////////////////
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  fullDocument.removeEventListener('keydown', function (e) {
+    if (e.key === "Escape") {
+    console.log(e.key);
+    console.log("itsworking");
+    closePopup(popup);
+   }});
 }
+
+
 
 /////////////////////ВЫЗОВ ПЕРВОГО ПОПАПА////////////////////////////
 ButtonEditProfile.addEventListener("click", function () {
@@ -101,8 +116,7 @@ const initialCards = [
 //////////////////////////////////////Функция для создания и возвращения карточки///////////////////////////////////
 function buildcard(element) {
   //Клонировали заготовку
-  const PlaceElement =
-    ElementsTemplate.querySelector(".elements__card").cloneNode(true);
+  const PlaceElement = ElementsTemplate.querySelector(".elements__card").cloneNode(true);
   //Заполнили название фото
   PlaceElement.querySelector(".elements__caption").textContent = element.name;
   //Нашли фото в карточке:
@@ -166,3 +180,31 @@ function addNewCard(e) {
   closePopup(PopupElement);
 }
 PopupElement.addEventListener("submit", addNewCard);
+
+////////////////////////////////////////////////////////ЗАКРЫТИЕ ПОПАПА НА ЭКСЕЙП////////////////////////////////////////////////////////////////////////////////////////////////
+
+// const popupList = document.querySelectorAll(".popup")
+// popupList.forEach(function (element) {
+//   element.addEventListener('keypress', function (evt) {
+//     evt.key === 'Escape'
+//     console.log(evt.key);
+//     console.log("itsworking");
+//     closePopup(element);
+//       })
+//   });
+//   const fullDocument = document.querySelector(".body");
+//   fullDocument.addEventListener('keydown', function (e) {
+//     if (e.key === "Escape") {
+//     console.log(e.key);
+//     console.log("itsworking");
+//     const popupList = document.querySelectorAll(".popup");
+//     popupList.forEach(closePopup)
+//    }});
+
+
+// console.log(popupList);
+
+
+
+
+
