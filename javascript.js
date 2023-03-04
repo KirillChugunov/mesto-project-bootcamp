@@ -39,6 +39,16 @@ function openPopup(popup) {
     console.log("itsworking");
     closePopup(popup);
    }});
+   popup.addEventListener('click', function (evt) {
+    console.log(evt.target);
+    if (evt.target === popup) {
+      closePopup(popup);
+      console.log("VALHALLA");
+    }
+   });
+
+   
+  
 }
 ////////////////////Функция закрытия попапа/////////////////////////
 function closePopup(popup) {
@@ -206,5 +216,12 @@ PopupElement.addEventListener("submit", addNewCard);
 
 
 
+// Popup.addEventListener('click', function (evt) {
+//   console.log(evt.target);
+//   if (evt.target.classList.contains('popup')) {
+//     closePopup(PopupElement);
+//     console.log("VALHALLA");
+//   }
+//  });
 
 
