@@ -15,11 +15,9 @@ const PopupBigImg = document.querySelector(".img-popup");
 const SectionElements = document.querySelector(".elements");
 const ElementsTemplate = document.querySelector("#element__template").content;
 const PlaceImgCloseButton = PopupBigImg.querySelector(".popup__close");
-const AddImgFormTitle = document.querySelector(".form__field_elements_title");
-const AddCaptionFormTitle = document.querySelector(
-  ".form__field_elements_subtitle"
-);
-const AddImgbutton = document.querySelector(".elemnt__submit");
+const AddImgFormTitle = document.querySelector("#input__img-caption");
+const AddCaptionFormTitle = document.querySelector("#input__img-link");
+const AddImgbutton = PopupElement.querySelector("popup__submit");
 
 ////////////////////Функция открытия попапа////////////////////
 function openPopup(popup) {
@@ -176,7 +174,7 @@ PopupElement.addEventListener("submit", addNewCard);
 ///////////////////////////////////ВАЛИДАЦИЯ//////////////////////////////////////////////////
 const validationConfig = {
   formSelector: ".popup__form",
-  inputSelector: ".popup__textinput",
+  inputSelector: ".popup__input",
   submitButtonSelector: ".popup__submit",
   inactiveButtonClass:"popup__submit_disabled",
   inputErrorClass: "popup__input_type_error",
@@ -208,7 +206,6 @@ function showInputError(
   inputElement.classList.add(validationConfig.inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(validationConfig.errorClass);
-  console.log("импутэррор" + errorElement);
 }
 
 function hideInputError(formElement, inputElement, validationConfig) {
