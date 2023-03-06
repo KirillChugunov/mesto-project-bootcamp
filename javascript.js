@@ -1,29 +1,20 @@
 /////////////////Переменные/////////////////////////////////////
 const fullDocument = document.querySelector(".body");
-const PopuProfile = document.querySelector(".popup__profile-edit");
+const popupEditProfile = document.querySelector(".popup__profile-edit");
 const ButtonEditProfile = document.querySelector(".profile__edit-button");
-const EditProfileCloseButton = document.querySelector(
-  ".popup__close_edit-profile"
-);
+const PopupEditCloseButton = popupEditProfile.querySelector(".popup__close");
 const ProfileTitle = document.querySelector(".profile__title");
 const ProfileSubtitle = document.querySelector(".profile__subtitle");
-const PopupFormTitle = document.querySelector(".form__field_profile_title");
-const PopupFormSubtitle = document.querySelector(
-  ".form__field_profile_subtitle"
-);
+const PopupFormTitle = popupEditProfile.querySelector("#input__title");
+const PopupFormSubtitle = popupEditProfile.querySelector("#input__subtitle");
 const ButtonAddProfile = document.querySelector(".profile__add-button");
 const PopupElement = document.querySelector(".popup__add-element");
-const PopupEditCloseButton = document.querySelector(
-  ".popup__close_edit-profile"
-);
-const PopupElementCloseButton = document.querySelector(
-  ".popup__close_add-element"
-);
-const PopupEditProfileForm = document.querySelector(".profile_popup_form");
+const PopupElementCloseButton = PopupElement.querySelector(".popup__close");
+const PopupEditProfileForm = popupEditProfile.querySelector(".popup__form");
 const PopupBigImg = document.querySelector(".img-popup");
 const SectionElements = document.querySelector(".elements");
 const ElementsTemplate = document.querySelector("#element__template").content;
-const PlaceImgCloseButton = document.querySelector(".img-popup__close");
+const PlaceImgCloseButton = PopupBigImg.querySelector(".popup__close");
 const AddImgFormTitle = document.querySelector(".form__field_elements_title");
 const AddCaptionFormTitle = document.querySelector(
   ".form__field_elements_subtitle"
@@ -33,39 +24,32 @@ const AddImgbutton = document.querySelector(".elemnt__submit");
 ////////////////////Функция открытия попапа////////////////////
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  fullDocument.addEventListener('keydown', function (e) {
+  fullDocument.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
-    console.log(e.key);
-    console.log("itsworking");
-    closePopup(popup);
-   }});
-   popup.addEventListener('click', function (evt) {
-    console.log(evt.target);
+      closePopup(popup);
+    }
+  });
+  popup.addEventListener("click", function (evt) {
     if (evt.target === popup) {
       closePopup(popup);
-      console.log("VALHALLA");
     }
-   });
-
-   
-  
+  });
 }
 ////////////////////Функция закрытия попапа/////////////////////////
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  fullDocument.removeEventListener('keydown', function (e) {
+  PopupFormTitle.value = "";
+  PopupFormSubtitle.value = "";
+  fullDocument.removeEventListener("keydown", function (e) {
     if (e.key === "Escape") {
-    console.log(e.key);
-    console.log("itsworking");
-    closePopup(popup);
-   }});
+      closePopup(popup);
+    }
+  });
 }
-
-
 
 /////////////////////ВЫЗОВ ПЕРВОГО ПОПАПА////////////////////////////
 ButtonEditProfile.addEventListener("click", function () {
-  openPopup(PopuProfile);
+  openPopup(popupEditProfile);
   PopupFormTitle.value = ProfileTitle.textContent;
   PopupFormSubtitle.value = ProfileSubtitle.textContent;
 });
@@ -75,7 +59,7 @@ ButtonAddProfile.addEventListener("click", function () {
 });
 /////////////////////////ЗАКРЫТИЕ ПЕРВОГО ПОПАПА/////////////////////////
 PopupEditCloseButton.addEventListener("click", function () {
-  closePopup(PopuProfile);
+  closePopup(popupEditProfile);
 });
 
 /////////////////////////ЗАКРЫТИЕ ВТОРОГО ПОПАПА/////////////////////////
@@ -87,7 +71,7 @@ function handleSubmitTitleForm(e) {
   e.preventDefault();
   ProfileTitle.textContent = PopupFormTitle.value;
   ProfileSubtitle.textContent = PopupFormSubtitle.value;
-  closePopup(PopuProfile);
+  closePopup(popupEditProfile);
 }
 
 PopupEditProfileForm.addEventListener("submit", handleSubmitTitleForm);
@@ -126,7 +110,8 @@ const initialCards = [
 //////////////////////////////////////Функция для создания и возвращения карточки///////////////////////////////////
 function buildcard(element) {
   //Клонировали заготовку
-  const PlaceElement = ElementsTemplate.querySelector(".elements__card").cloneNode(true);
+  const PlaceElement =
+    ElementsTemplate.querySelector(".elements__card").cloneNode(true);
   //Заполнили название фото
   PlaceElement.querySelector(".elements__caption").textContent = element.name;
   //Нашли фото в карточке:
@@ -136,7 +121,6 @@ function buildcard(element) {
   PlaceImg.alt = PlaceElement.textContent;
   //Повесили слушателя на изображение на открытие попапа
   PlaceImg.addEventListener("click", function () {
-    console.log("i am alive2");
     openPopup(PopupBigImg);
     const BigImg = document.querySelector(".img-popup__figure");
     BigImg.src = PlaceImg.src;
@@ -157,7 +141,6 @@ function buildcard(element) {
   //Повесили слушателя на лайк:
   LikeButton.addEventListener("click", function () {
     LikeButton.classList.toggle("elements__heart-button_active");
-    console.log("i am alive");
   });
   return PlaceElement;
 }
@@ -186,42 +169,99 @@ function addNewCard(e) {
     link: AddCaptionFormTitle.value,
   };
   createCard(card);
-  console.log("I AM ALIVE!!!1");
   closePopup(PopupElement);
 }
 PopupElement.addEventListener("submit", addNewCard);
 
-////////////////////////////////////////////////////////ЗАКРЫТИЕ ПОПАПА НА ЭКСЕЙП////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////ВАЛИДАЦИЯ//////////////////////////////////////////////////
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__textinput",
+  submitButtonSelector: ".popup__submit",
+  inactiveButtonClass:"popup__submit_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
 
-// const popupList = document.querySelectorAll(".popup")
-// popupList.forEach(function (element) {
-//   element.addEventListener('keypress', function (evt) {
-//     evt.key === 'Escape'
-//     console.log(evt.key);
-//     console.log("itsworking");
-//     closePopup(element);
-//       })
-//   });
-//   const fullDocument = document.querySelector(".body");
-//   fullDocument.addEventListener('keydown', function (e) {
-//     if (e.key === "Escape") {
-//     console.log(e.key);
-//     console.log("itsworking");
-//     const popupList = document.querySelectorAll(".popup");
-//     popupList.forEach(closePopup)
-//    }});
+function checkInputValidity(formElement, inputElement, validationConfig) {
+  console.log("checkvalidity works");
+  if (!inputElement.validity.valid) {
+    showInputError(
+      formElement,
+      inputElement,
+      inputElement.validationMessage,
+      validationConfig
+    );
+  } else {
+    hideInputError(formElement, inputElement, validationConfig);
+  }
+}
+
+function showInputError(
+  formElement,
+  inputElement,
+  errorMessage,
+  validationConfig
+) {
+  console.log("showInputError works");
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  inputElement.classList.add(validationConfig.inputErrorClass);
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add(validationConfig.errorClass);
+  console.log("импутэррор" + errorElement);
+}
+
+function hideInputError(formElement, inputElement, validationConfig) {
+  console.log("hideInputError works");
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  inputElement.classList.remove(validationConfig.inputErrorClass);
+  errorElement.classList.remove(validationConfig.errorClass);
+  errorElement.textContent = "";
+}
+
+function toggleButtonState(inputList, buttonElement, validationConfig) {
+  console.log("toggleButtonState works");
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add(validationConfig.inactiveButtonClass);
+    buttonElement.disabled = true;
+  } else {
+    buttonElement.classList.remove(validationConfig.inactiveButtonClass);
+    buttonElement.disabled = false;
+  }
+}
+
+function hasInvalidInput(inputList) {
+  console.log("hasInvalidInput works");
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+}
+
+function setEventListeners(formElement) {
+  console.log("setEventListeners works");
+  const inputList = Array.from(formElement.querySelectorAll(validationConfig.inputSelector));
+  console.log(inputList);
+  const buttonElement = formElement.querySelector(validationConfig.submitButtonSelector);
+  toggleButtonState(inputList, buttonElement, validationConfig);
+  inputList.forEach((inputElement) => {
+    console.log(inputElement);
+    inputElement.addEventListener("input", function () {
+      checkInputValidity(formElement, inputElement, validationConfig);
+      toggleButtonState(inputList, buttonElement, validationConfig);
+      console.log(inputElement);
+    });
+  });
+}
+
+function enableValidation(validationConfig) {
+  console.log("enableValidation works");
+  const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
+  console.log(formList);
+  formList.forEach((formElement) => {
+      setEventListeners(formElement);
+      console.log(formElement);
+    });
+  };
 
 
-// console.log(popupList);
-
-
-
-// Popup.addEventListener('click', function (evt) {
-//   console.log(evt.target);
-//   if (evt.target.classList.contains('popup')) {
-//     closePopup(PopupElement);
-//     console.log("VALHALLA");
-//   }
-//  });
-
-
+enableValidation(validationConfig);

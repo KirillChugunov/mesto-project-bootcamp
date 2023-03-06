@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="pages/index.css" />
   <title>Проект: Место</title>
 </head>
-
 <body class="body">
   <div class="page">
     <header class="header">
@@ -45,11 +44,13 @@
     <div class="popup__container">
       <button class="popup__close popup__close_edit-profile" type="reset"></button>
       <h3 class="popup__legend">Редактировать профиль</h3>
-      <form class="popup__form profile_popup_form" name="profile_popup_form">
-        <input name="pupup__name" type="text" value="Имя" class="popup__textinput form__field_profile_title"
-          placeholder="Имя" />
-        <input type="text" name="popup__profession" value="Профессия" placeholder="Профессия"
-          class="popup__textinput form__field_profile_subtitle" required />
+      <form class="popup__form" novalidate>
+        <input type="text" class="popup__textinput" id="input__title" placeholder="Имя" required minlength="2"
+          maxlength="40">
+        <span class="popup__error" id="input__title-error">1111111111111111111111111111111</span>
+        <input type="text" placeholder="О себе" class="popup__textinput" id="input__subtitle" required minlength="2"
+          maxlength="200">
+        <span class="popup__error" id="input__subtitle-error"></span>
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
     </div>
@@ -78,5 +79,4 @@
   </div>
   <script src="./javascript.js"></script>
 </body>
-
 </html>
