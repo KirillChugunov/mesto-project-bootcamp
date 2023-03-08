@@ -4,17 +4,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="pages/index.css" />
   <title>Проект: Место</title>
 </head>
+
 <body class="body">
   <div class="page">
     <header class="header">
-      <img src="./images/Vectorlogo_header.svg" class="header__logo" alt="логотип место" />
+      <img src="<%=require('./images/Vectorlogo_header.svg')%>" class="header__logo" alt="логотип место" />
     </header>
     <main class="main">
       <section class="profile">
-        <img class="profile__avatar" src="./images/imageJac-iv.jpg" alt="изображение Жак-Ив Кусто" />
+        <img class="profile__avatar" src="<%=require('./images/imageJac-iv.jpg')%>" alt="изображение Жак-Ив Кусто" />
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <button class="profile__edit-button" type="button"></button>
@@ -60,8 +60,8 @@
       <button class="popup__close" type="button"></button>
       <h3 class="popup__legend">Новое место</h3>
       <form class="popup__form" novalidate>
-        <input type="text" class="popup__input form__field_elements_title" id="input__img-caption" placeholder="Название" required minlength="2"
-        maxlength="40"/>
+        <input type="text" class="popup__input form__field_elements_title" id="input__img-caption"
+          placeholder="Название" required minlength="2" maxlength="40" />
         <span class="popup__error" id="input__img-caption-error"></span>
         <input type="url" placeholder="Ссылка на картинку" class="popup__input" id="input__img-link" required />
         <span class="popup__error" id="input__img-link-error"></span>
@@ -78,6 +78,6 @@
         <figcaption class="img-popup__caption">ssssssss</figcaption>
     </div>
   </div>
-  <script src="./javascript.js"></script>
 </body>
+
 </html>
