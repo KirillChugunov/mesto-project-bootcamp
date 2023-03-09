@@ -37,15 +37,10 @@
 @import url(../blocks/popup/__input/popup__input.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__container/popup__container.css);
-<<<<<<< HEAD:pages/index.css
-@import url(../blocks/popup/__form/_profile_title/form__field_profile_title.css);
-@import url(../blocks/popup/__form/_profile_subtitle/form__field_profile_subtitle.css);
-=======
 @import url(../blocks/popup/__input_type_error/popup__input_type_error.css);
 @import url(../blocks/popup/__submit/_disabled/popup__submit_disabled.css);
 @import url(../blocks/popup/__error/popup__error.css);
 @import url(../blocks/popup/__error/_visible/popup__error_visible.css);
->>>>>>> develop:src/pages/index.css
 /* img-popup */
 @import url(../blocks/img-popup/img-popup.css);
 @import url(../blocks/img-popup/__container/img-popup__container.css);
