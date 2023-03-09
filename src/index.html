@@ -4,18 +4,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="pages/index.css" />
   <title>Проект: Место</title>
 </head>
 
 <body class="body">
   <div class="page">
     <header class="header">
-      <img src="./images/Vectorlogo_header.svg" class="header__logo" alt="логотип место" />
+      <img src="<%=require('./images/Vectorlogo_header.svg')%>" class="header__logo" alt="логотип место" />
     </header>
     <main class="main">
       <section class="profile">
-        <img class="profile__avatar" src="./images/imageJac-iv.jpg" alt="изображение Жак-Ив Кусто" />
+        <img class="profile__avatar" src="<%=require('./images/imageJac-iv.jpg')%>" alt="изображение Жак-Ив Кусто" />
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <button class="profile__edit-button" type="button"></button>
@@ -45,6 +44,7 @@
     <div class="popup__container">
       <button class="popup__close popup__close_edit-profile" type="reset"></button>
       <h3 class="popup__legend">Редактировать профиль</h3>
+<<<<<<< HEAD:index.html
       <form class="popup__form profile_popup_form" name="profile_popup_form" novalidate>
         <input name="pupup__name" type="text" class="popup__textinput form__field_profile_title"
           placeholder="Имя" required minlength="2" maxlength="40" id="imput-profile-title">
@@ -52,18 +52,36 @@
         <input type="text" name="popup__profession" placeholder="Профессия"
           class="popup__textinput form__field_profile_subtitle" required minlength="2" maxlength="40">
           <span class="form__input-error email-input-error" id="imput-profile-subtitle">11111</span>
+=======
+      <form class="popup__form" novalidate>
+        <input type="text" class="popup__input" id="input__title" placeholder="Имя" required minlength="2"
+          maxlength="40">
+        <span class="popup__error" id="input__title-error"></span>
+        <input type="text" placeholder="О себе" class="popup__input" id="input__subtitle" required minlength="2"
+          maxlength="200">
+        <span class="popup__error" id="input__subtitle-error"></span>
+>>>>>>> develop:src/index.html
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
     </div>
   </div>
   <div class="popup popup__add-element">
     <div class="popup__container">
-      <button class="popup__close popup__close_add-element" type="button"></button>
+      <button class="popup__close" type="button"></button>
       <h3 class="popup__legend">Новое место</h3>
+<<<<<<< HEAD:index.html
       <form class="popup__form" name="element_popup_form">
         <input name="pupup__elemnt-name" type="text" class="popup__textinput form__field_elements_title" placeholder="Название" required minlength="2" maxlength="40">
         <input type="text" name="popup__elemnt-link" placeholder="Ссылка на картинку"
           class="popup__textinput form__field_elements_subtitle" required minlength="2" maxlength="40">
+=======
+      <form class="popup__form" novalidate>
+        <input type="text" class="popup__input form__field_elements_title" id="input__img-caption"
+          placeholder="Название" required minlength="2" maxlength="40" />
+        <span class="popup__error" id="input__img-caption-error"></span>
+        <input type="url" placeholder="Ссылка на картинку" class="popup__input" id="input__img-link" required />
+        <span class="popup__error" id="input__img-link-error"></span>
+>>>>>>> develop:src/index.html
         <button class="popup__submit elemnt__submit" type="submit">Сохранить</button>
       </form>
     </div>
@@ -77,7 +95,6 @@
         <figcaption class="img-popup__caption">ssssssss</figcaption></figure>
     </div>
   </div>
-  <script src="./javascript.js"></script>
 </body>
 
 </html>
