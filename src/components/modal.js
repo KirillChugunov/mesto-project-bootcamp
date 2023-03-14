@@ -9,11 +9,7 @@ import {
 ////////////////////Функция открытия попапа////////////////////
 export function openPopup(popup) {
   popup.classList.add("popup_opened");
-  fullDocument.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") {
-      closePopup(popup);
-    }
-  });
+  fullDocument.addEventListener("keydown", closeByEscape);
   popup.addEventListener("click", function (evt) {
     if (evt.target === popup) {
       closePopup(popup);
@@ -40,3 +36,11 @@ export function handleSubmitTitleForm(e) {
   ProfileSubtitle.textContent = PopupFormSubtitle.value;
   closePopup(popupEditProfile);
 }
+
+function closeByEscape(e) {
+  if (e.key === "Escape") {
+    const popup = document.querySelector(".popup_opened")
+    closePopup(popup);
+    console.log("ЯЗАКРЫВАЮСЬ")
+  }
+};

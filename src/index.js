@@ -5,7 +5,7 @@ import {
   closePopup,
   handleSubmitTitleForm,
 } from "./components/modal.js";
-import { gridBuilder, addNewCard } from "./components/card.js";
+import { gridBuilder, addNewCard, createCard } from "./components/card.js";
 import { enableValidation } from "./components/validate.js";
 
 /////////////////Переменные/////////////////////////////////////
@@ -14,6 +14,7 @@ export const popupEditProfile = document.querySelector(".popup__profile-edit");
 const ButtonEditProfile = document.querySelector(".profile__edit-button");
 const PopupEditCloseButton = popupEditProfile.querySelector(".popup__close");
 export const ProfileTitle = document.querySelector(".profile__title");
+const ProfileAvatar = document.querySelector(".profile__avatar")
 export const ProfileSubtitle = document.querySelector(".profile__subtitle");
 export const PopupFormTitle = popupEditProfile.querySelector("#input__title");
 export const PopupFormSubtitle =
@@ -87,6 +88,9 @@ PopupElementCloseButton.addEventListener("click", function () {
 });
 //Листенер сабмита первого поапа
 PopupEditProfileForm.addEventListener("submit", handleSubmitTitleForm);
+//Функция для слушателя на закрытие по esp
+
+
 
 //////////////////ДОБАВЛЕНИЕ ИЗОБРАЖЕНИЙ/////////////////////////
 
@@ -106,3 +110,41 @@ PopupElement.addEventListener("submit", addNewCard);
 ///////////////////////////////////ВАЛИДАЦИЯ//////////////////////////////////////////////////
 
 enableValidation(validationConfig);
+
+const config = {
+  baseUrl: 'https://mesto.nomoreparties.co/v1/wbf-cohort-6',
+  headers: {
+    authorization: 'd1f78d2c-b56d-404a-8b1d-91f3bcf47ed4',
+    'Content-Type': 'application/json'
+  }
+}
+
+fetch (`${config.baseUrl}/users/me`, {
+  headers: config.headers })
+  .then((res) => {
+    return res.json()
+  })
+  .then((element) => {
+    renderelements(element);
+  })
+  .catch((err) => {
+    console.log(err);
+  }); 
+
+  function renderelements(element) {
+    element.forEach(createCard);
+  }
+
+  // const username = fetch (`${config.baseUrl}/users/me`, {
+  //   headers: config.headers })
+  //   .then((res) => {
+  //     return res.json()
+  //   })
+  //   .then((data) => {
+  //     return(data.cohort); 
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   }); 
+
+  // console.log(username);
