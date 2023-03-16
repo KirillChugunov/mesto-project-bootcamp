@@ -1,18 +1,18 @@
 import {
-  initialCards,
   ElementsTemplate,
   SectionElements,
   PopupBigImg,
   AddCaptionFormTitle,
   AddImgFormTitle,
   PopupElement,
+  config,
 } from "../index.js";
 import { openPopup, closePopup } from "./modal.js";
 /////////////////////////////////////Функция для создания и возвращения карточки///////////////////////////////////
+
 export function buildcard(element) {
   //Клонировали заготовку
-  const PlaceElement =
-    ElementsTemplate.querySelector(".elements__card").cloneNode(true);
+  const PlaceElement = ElementsTemplate.querySelector(".elements__card").cloneNode(true);
   //Заполнили название фото
   PlaceElement.querySelector(".elements__caption").textContent = element.name;
   //Нашли фото в карточке:
@@ -32,6 +32,7 @@ export function buildcard(element) {
   const ImgDeleteButton = PlaceElement.querySelector(
     ".elements__delete-button"
   );
+  
   //Повесили слушателя на удаление:
   ImgDeleteButton.addEventListener("click", function () {
     const CardItem = ImgDeleteButton.closest(".elements__card");
@@ -43,6 +44,9 @@ export function buildcard(element) {
   LikeButton.addEventListener("click", function () {
     LikeButton.classList.toggle("elements__heart-button_active");
   });
+  //Нашли счетчик лайков
+  const LikesCount = PlaceElement.querySelector(".elements__likes-count");
+  LikesCount.textContent = element.likes.length;
   return PlaceElement;
 }
 
@@ -52,17 +56,46 @@ export function createCard(element) {
   SectionElements.prepend(card);
 }
 
-//Добавляем карты из массива:
-export function gridBuilder() {
-  initialCards.forEach(createCard);
-}
 //Добавляем карту из попапа:
 export function addNewCard(e) {
   e.preventDefault();
-  const card = {
-    name: AddImgFormTitle.value,
-    link: AddCaptionFormTitle.value,
-  };
-  createCard(card);
+  apiAddCardPost(AddImgFormTitle.value, AddCaptionFormTitle.value)
   closePopup(PopupElement);
 }
+
+
+///////////////////////Функция добавления одной карточки:
+function apiAddCardPost(name, link) {
+  fetch(`${config.baseUrl}/cards`, {
+    method: 'POST',
+    headers: config.headers,
+    body: JSON.stringify ({
+      name: name,
+      link: link
+    })
+   })
+ .then((res) => {
+   return res.json()
+})
+ .then((res) => {
+  const card = {
+    name: res.name,
+    link: res.link
+  }
+  createCard(card);
+  })
+  .catch((reg) => {console.log(reg)});
+}
+
+//проверка ID пользователя
+function checkIdForRemoveDeleteButton(ownerid, deletebutton) {
+  // console.log(myid)
+  // console.log(ownerid)
+  const myid = returnMyProfileID;
+  if (myid != ownerid) {
+    deletebutton.remove
+    // console.log("id не совпал")
+  }
+  else {console.log ("id совпал")}
+};
+

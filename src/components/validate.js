@@ -5,8 +5,7 @@ export function checkInputValidity(
   inputElement,
   validationConfig
 ) {
-  console.log("checkvalidity works");
-  if (!inputElement.validity.valid) {
+   if (!inputElement.validity.valid) {
     showInputError(
       formElement,
       inputElement,
@@ -24,7 +23,6 @@ export function showInputError(
   errorMessage,
   validationConfig
 ) {
-  console.log("showInputError works");
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.add(validationConfig.inputErrorClass);
   errorElement.textContent = errorMessage;
@@ -32,7 +30,6 @@ export function showInputError(
 }
 
 export function hideInputError(formElement, inputElement, validationConfig) {
-  console.log("hideInputError works");
   const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.remove(validationConfig.inputErrorClass);
   errorElement.classList.remove(validationConfig.errorClass);
@@ -41,7 +38,6 @@ export function hideInputError(formElement, inputElement, validationConfig) {
 
 // Стилизация/включение кнопки
 export function toggleButtonState(inputList, buttonElement, validationConfig) {
-  console.log("toggleButtonState works");
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(validationConfig.inactiveButtonClass);
     buttonElement.disabled = true;
@@ -52,40 +48,33 @@ export function toggleButtonState(inputList, buttonElement, validationConfig) {
 }
 //Колбэк валидности
 export function hasInvalidInput(inputList) {
-  console.log("hasInvalidInput works");
-  return inputList.some((inputElement) => {
+   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 }
 //Вешаем слушателей
 export function setEventListeners(formElement) {
-  console.log("setEventListeners works");
-  const inputList = Array.from(
+   const inputList = Array.from(
     formElement.querySelectorAll(validationConfig.inputSelector)
   );
-  console.log(inputList);
   const buttonElement = formElement.querySelector(
     validationConfig.submitButtonSelector
   );
   toggleButtonState(inputList, buttonElement, validationConfig);
   inputList.forEach((inputElement) => {
-    console.log(inputElement);
-    inputElement.addEventListener("input", function () {
+        inputElement.addEventListener("input", function () {
       checkInputValidity(formElement, inputElement, validationConfig);
       toggleButtonState(inputList, buttonElement, validationConfig);
-      console.log(inputElement);
-    });
+          });
   });
 }
 //Включаем валидацию
 export function enableValidation(validationConfig) {
-  console.log("enableValidation works");
-  const formList = Array.from(
+    const formList = Array.from(
     document.querySelectorAll(validationConfig.formSelector)
   );
-  console.log(formList);
   formList.forEach((formElement) => {
     setEventListeners(formElement);
-    console.log(formElement);
+    
   });
 }

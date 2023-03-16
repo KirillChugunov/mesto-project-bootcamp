@@ -6,9 +6,7 @@
   border: 0px;
   background-color: transparent;
   background-repeat: no-repeat;
-  margin: 30px 20px 30px auto;
   padding: 0;
-  flex-shrink: 0;
 }
 
 .elements__heart-button:hover {
