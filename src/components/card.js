@@ -7,6 +7,7 @@ import {
   PopupElement,
   config,
   getmyID,
+  ProfileTitle
 } from "../index.js";
 import { openPopup, closePopup } from "./modal.js";
 /////////////////////////////////////Функция для создания и возвращения карточки///////////////////////////////////
@@ -35,14 +36,14 @@ export function buildcard(element, userId) {
   const ImgDeleteButton = PlaceElement.querySelector(
     ".elements__delete-button"
   );
-
   //Удалили ненужные кнопки, повесили слушателей на нужные.
   removeDeleteButton(ImgDeleteButton, userId, element.owner._id, PlaceElement.id);
    //Нашли кнопку лайка
   const LikeButton = PlaceElement.querySelector(".elements__heart-button");
   //Повесили слушателя на лайк:
+  myLikesUpdate(element.likes, userId, LikeButton);
   LikeButton.addEventListener("click", function () {cardLike(PlaceElement.id,LikeButton, LikesCount)});
-  //Нашли счетчик лайков
+     //Нашли счетчик лайков
   const LikesCount = PlaceElement.querySelector(".elements__likes-count");
   LikesCount.textContent = element.likes.length;
   return PlaceElement;
@@ -97,14 +98,13 @@ export function apiCardDelite(cardID) {
     const deletingCard = document.getElementById(`${cardID}`)
     deletingCard.remove()});
   }
+/// Отображение лайка если юзер уже лайкал:
 
 ///Удаление/добавление лайка
-function cardLike(cardID, LikeButton, LikesCount) {
+function cardLike(cardID, LikeButton) {
   if (LikeButton.classList.contains("elements__heart-button_active")) {
     apiLikeDelete(cardID, LikeButton);}
-
     else 
-    
     {apiLikeAdd(cardID, LikeButton)};
   }
 
@@ -113,10 +113,11 @@ function apiLikeAdd(cardID, LikeButton) {
     method: "PUT",
     headers: config.headers,
   })
-  .then((res) => {LikeButton.classList.add("elements__heart-button_active");
-  console.log("Я УСТАЛ")
-  console.log(LikeButton);
-  })
+
+  .then((res) => {
+  LikeButton.classList.add("elements__heart-button_active");
+   return res.json(); })
+  .then((res) => {updateLikeCount(res.likes.length, cardID)});
 }
 
 function apiLikeDelete(cardID, LikeButton) {
@@ -124,10 +125,24 @@ function apiLikeDelete(cardID, LikeButton) {
     method: "DELETE",
     headers: config.headers,
   })
-  .then((res) => {LikeButton.classList.remove("elements__heart-button_active");
-  console.log("Я ТОЖЕ")
+
+  .then((res) => {
+  LikeButton.classList.remove("elements__heart-button_active");
+  return res.json();
   })
+
+  .then((res) => {updateLikeCount(res.likes.length, cardID)});
 }
 
+function myLikesUpdate (cardLikes, myId, LikeButton) {
+  if (cardLikes.some(like => like._id === myId)) {
+   LikeButton.classList.add("elements__heart-button_active");
+     }
+}
 
+function updateLikeCount (newLikeCount, cardID) {
+  const cardForLikesUpdate = document.getElementById(`${cardID}`);
+  const LikesCountForUpdate = cardForLikesUpdate.querySelector(".elements__likes-count");
+  LikesCountForUpdate.textContent = newLikeCount;
+}
 
