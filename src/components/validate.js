@@ -5,7 +5,7 @@ export function checkInputValidity(
   inputElement,
   validationConfig
 ) {
-   if (!inputElement.validity.valid) {
+  if (!inputElement.validity.valid) {
     showInputError(
       formElement,
       inputElement,
@@ -48,13 +48,13 @@ export function toggleButtonState(inputList, buttonElement, validationConfig) {
 }
 //Колбэк валидности
 export function hasInvalidInput(inputList) {
-   return inputList.some((inputElement) => {
+  return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 }
 //Вешаем слушателей
 export function setEventListeners(formElement) {
-   const inputList = Array.from(
+  const inputList = Array.from(
     formElement.querySelectorAll(validationConfig.inputSelector)
   );
   const buttonElement = formElement.querySelector(
@@ -62,19 +62,18 @@ export function setEventListeners(formElement) {
   );
   toggleButtonState(inputList, buttonElement, validationConfig);
   inputList.forEach((inputElement) => {
-        inputElement.addEventListener("input", function () {
+    inputElement.addEventListener("input", function () {
       checkInputValidity(formElement, inputElement, validationConfig);
       toggleButtonState(inputList, buttonElement, validationConfig);
-          });
+    });
   });
 }
 //Включаем валидацию
 export function enableValidation(validationConfig) {
-    const formList = Array.from(
+  const formList = Array.from(
     document.querySelectorAll(validationConfig.formSelector)
   );
   formList.forEach((formElement) => {
     setEventListeners(formElement);
-    
   });
 }

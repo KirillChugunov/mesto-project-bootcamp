@@ -5,7 +5,7 @@ import {
   ProfileSubtitle,
   PopupFormSubtitle,
   popupEditProfile,
-  config
+  config,
 } from "../index.js";
 ////////////////////Функция открытия попапа////////////////////
 export function openPopup(popup) {
@@ -37,28 +37,27 @@ export function handleSubmitTitleForm(e) {
   closePopup(popupEditProfile);
 }
 //////////Функция отправки данных профайла на сервер
-function apiProfilePatch (name, about) {
-  fetch (`${config.baseUrl}/users/me`, {
-  method: 'PATCH',
-  headers: config.headers,
-  body: JSON.stringify({
-    name: name,
-    about: about
+function apiProfilePatch(name, about) {
+  fetch(`${config.baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: config.headers,
+    body: JSON.stringify({
+      name: name,
+      about: about,
+    }),
   })
- })
- .then((res) => {
-  return res.json()
-})
- .then((res) => {
-    ProfileTitle.textContent = res.name,
-    ProfileSubtitle.textContent = res.about
-  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((res) => {
+      (ProfileTitle.textContent = res.name),
+        (ProfileSubtitle.textContent = res.about);
+    });
 }
-
 
 function closeByEscape(e) {
   if (e.key === "Escape") {
-    const popup = document.querySelector(".popup_opened")
+    const popup = document.querySelector(".popup_opened");
     closePopup(popup);
   }
-};
+}

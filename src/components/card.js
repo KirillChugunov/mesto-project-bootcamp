@@ -6,13 +6,15 @@ import {
   AddImgFormTitle,
   PopupElement,
   config,
+  getmyID,
 } from "../index.js";
 import { openPopup, closePopup } from "./modal.js";
 /////////////////////////////////////Функция для создания и возвращения карточки///////////////////////////////////
 
-export function buildcard(element) {
+export function buildcard(element, userId) {
   //Клонировали заготовку
-  const PlaceElement = ElementsTemplate.querySelector(".elements__card").cloneNode(true);
+  const PlaceElement =
+    ElementsTemplate.querySelector(".elements__card").cloneNode(true);
   //Заполнили название фото
   PlaceElement.querySelector(".elements__caption").textContent = element.name;
   //Нашли фото в карточке:
@@ -20,82 +22,112 @@ export function buildcard(element) {
   //Заполнили фото и атрибут alt
   PlaceImg.src = element.link;
   PlaceImg.alt = PlaceElement.textContent;
+  PlaceElement.id = element._id;
   //Повесили слушателя на изображение на открытие попапа
   PlaceImg.addEventListener("click", function () {
     openPopup(PopupBigImg);
     const BigImg = document.querySelector(".img-popup__figure");
     BigImg.src = PlaceImg.src;
-    const BigCaption = document.querySelector(".img-popup__caption");
+    const BigCaption = document.querySelector(".img-popupтз__caption");
     BigCaption.textContent = element.name;
   });
   // Нашли кнопку удаления
   const ImgDeleteButton = PlaceElement.querySelector(
     ".elements__delete-button"
   );
-  
-  //Повесили слушателя на удаление:
-  ImgDeleteButton.addEventListener("click", function () {
-    const CardItem = ImgDeleteButton.closest(".elements__card");
-    CardItem.remove();
-  });
-  //Нашли кнопку лайка
+
+  //Удалили ненужные кнопки, повесили слушателей на нужные.
+  removeDeleteButton(ImgDeleteButton, userId, element.owner._id, PlaceElement.id);
+   //Нашли кнопку лайка
   const LikeButton = PlaceElement.querySelector(".elements__heart-button");
   //Повесили слушателя на лайк:
-  LikeButton.addEventListener("click", function () {
-    LikeButton.classList.toggle("elements__heart-button_active");
-  });
+  LikeButton.addEventListener("click", function () {cardLike(PlaceElement.id,LikeButton, LikesCount)});
   //Нашли счетчик лайков
   const LikesCount = PlaceElement.querySelector(".elements__likes-count");
   LikesCount.textContent = element.likes.length;
   return PlaceElement;
 }
-
 //Функция добавления карты в верстку
-export function createCard(element) {
-  const card = buildcard(element);
+export function createCard(element, ID) {
+  const card = buildcard(element, ID);
   SectionElements.prepend(card);
 }
-
 //Добавляем карту из попапа:
 export function addNewCard(e) {
   e.preventDefault();
-  apiAddCardPost(AddImgFormTitle.value, AddCaptionFormTitle.value)
-  closePopup(PopupElement);
+  apiAddCardPost(AddImgFormTitle.value, AddCaptionFormTitle.value);
 }
-
-
 ///////////////////////Функция добавления одной карточки:
 function apiAddCardPost(name, link) {
   fetch(`${config.baseUrl}/cards`, {
-    method: 'POST',
+    method: "POST",
     headers: config.headers,
-    body: JSON.stringify ({
+    body: JSON.stringify({
       name: name,
-      link: link
-    })
-   })
- .then((res) => {
-   return res.json()
-})
- .then((res) => {
-  const card = {
-    name: res.name,
-    link: res.link
-  }
-  createCard(card);
+      link: link,
+    }),
   })
-  .catch((reg) => {console.log(reg)});
+    .then((res) => {
+      return res.json();
+    })
+    .then((res) => {
+      createCard(res, res.owner._id);
+      closePopup(PopupElement);
+    });
+}
+//////////////Удаление и слушатель кнопки Delete
+function removeDeleteButton(ImgDeleteButton, userId, ownerID, cardID) {
+  if (userId != ownerID) {
+    ImgDeleteButton.remove();
+  } else {
+    ImgDeleteButton.addEventListener("click", function () {
+      apiCardDelite(cardID) 
+    });
+  }
+}
+///Удаление карточки из Delete
+export function apiCardDelite(cardID) {
+  fetch(`${config.baseUrl}/cards/${cardID}`, {
+    method: "DELETE",
+    headers: config.headers,
+  }).then((res) => {
+    return res.json();
+  })
+  .then((res) => {
+    const deletingCard = document.getElementById(`${cardID}`)
+    deletingCard.remove()});
+  }
+
+///Удаление/добавление лайка
+function cardLike(cardID, LikeButton, LikesCount) {
+  if (LikeButton.classList.contains("elements__heart-button_active")) {
+    apiLikeDelete(cardID, LikeButton);}
+
+    else 
+    
+    {apiLikeAdd(cardID, LikeButton)};
+  }
+
+function apiLikeAdd(cardID, LikeButton) {
+  fetch(`${config.baseUrl}/cards/likes/${cardID}`, {
+    method: "PUT",
+    headers: config.headers,
+  })
+  .then((res) => {LikeButton.classList.add("elements__heart-button_active");
+  console.log("Я УСТАЛ")
+  console.log(LikeButton);
+  })
 }
 
-//проверка ID пользователя
-function checkIdForRemoveDeleteButton(ownerid, deletebutton) {
-  // console.log(myid)
-  // console.log(ownerid)
-  const myid = returnMyProfileID;
-  if (myid != ownerid) {
-    deletebutton.remove
-    // console.log("id не совпал")
-  }
-  else {console.log ("id совпал")}
-};
+function apiLikeDelete(cardID, LikeButton) {
+  fetch(`${config.baseUrl}/cards/likes/${cardID}`, {
+    method: "DELETE",
+    headers: config.headers,
+  })
+  .then((res) => {LikeButton.classList.remove("elements__heart-button_active");
+  console.log("Я ТОЖЕ")
+  })
+}
+
+
 

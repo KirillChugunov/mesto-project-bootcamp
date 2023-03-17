@@ -13,7 +13,7 @@ export const popupEditProfile = document.querySelector(".popup__profile-edit");
 const ButtonEditProfile = document.querySelector(".profile__edit-button");
 const PopupEditCloseButton = popupEditProfile.querySelector(".popup__close");
 export const ProfileTitle = document.querySelector(".profile__title");
-const ProfileAvatar = document.querySelector(".profile__avatar")
+const ProfileAvatar = document.querySelector(".profile__avatar");
 export const ProfileSubtitle = document.querySelector(".profile__subtitle");
 export const PopupFormTitle = document.querySelector("#input__title");
 export const PopupFormSubtitle = document.querySelector("#input__subtitle");
@@ -61,8 +61,6 @@ PopupElementCloseButton.addEventListener("click", function () {
 PopupEditProfileForm.addEventListener("submit", handleSubmitTitleForm);
 //Функция для слушателя на закрытие по esp
 
-
-
 //////////////////ДОБАВЛЕНИЕ ИЗОБРАЖЕНИЙ/////////////////////////
 
 // МАССИВ С ФОТО И ССЫЛКАМИ
@@ -83,40 +81,62 @@ PopupElement.addEventListener("submit", addNewCard);
 enableValidation(validationConfig);
 
 export const config = {
-  baseUrl:'https://mesto.nomoreparties.co/v1/wbf-cohort-6',
+  baseUrl: "https://mesto.nomoreparties.co/v1/wbf-cohort-6",
   headers: {
-    authorization: 'd1f78d2c-b56d-404a-8b1d-91f3bcf47ed4',
-    'Content-Type': 'application/json'
+    authorization: "d1f78d2c-b56d-404a-8b1d-91f3bcf47ed4",
+    "Content-Type": "application/json",
+  },
+};
+
+// Promise.all([profilePreloadOnStart(), getCardsFromApi()]).then(([userInfo, userCards]) => {
+//     ProfileTitle.textContent = userInfo.name,
+//     ProfileSubtitle.textContent = userInfo.about
+//     ProfileAvatar.src = userInfo.avatar;})
+
+Promise.all([profilePreloadOnStart(), getCardsFromApi()]).then(
+  ([user, cardsMassive]) => {
+    (ProfileTitle.textContent = user.name),
+      (ProfileSubtitle.textContent = user.about);
+    ProfileAvatar.src = user.avatar;
+    cardsMassive.forEach((card) => {
+      createCard(card, user._id);
+    });
   }
+);
+//     res.forEach((cards) => {
+//       createCard(cards, userInfo._id)
+//     });
+// })
+
+function getCardsFromApi() {
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers,
+  }).then((res) => {
+    return res.json();
+  });
+  // .then((res) => {
+  //   res.forEach((card) => {
+  //     createCard(card);
+  //   })
+  // })
 }
 
-fetch (`${config.baseUrl}/cards`, {
-  headers: config.headers })
-  .then((res) => {
-    return res.json()
-})
-  .then((res) => {
-    res.forEach(createCard);
-  })
+/////////////////Функция загрузки данных с сервера при загрузке страницы
+export function profilePreloadOnStart() {
+  return fetch(`${config.baseUrl}/users/me`, {
+    headers: config.headers,
+  }).then((res) => {
+    return res.json();
+  });
+  // .then((res) => {
+  //   ProfileTitle.textContent = res.name,
+  //   ProfileSubtitle.textContent = res.about
+  //   ProfileAvatar.src = res.avatar;
+  // })
+}
 
-  /////////////////Функция загрузки данных с сервера при загрузке страницы
-export function profilePreloadOnStart () {
-  fetch (`${config.baseUrl}/users/me`, {
-    headers: config.headers })
-    .then((res) => {
-      return res.json()
-    })
-    .then((res) => {
-      ProfileTitle.textContent = res.name,
-      ProfileSubtitle.textContent = res.about
-      ProfileAvatar.src = res.avatar;
-      console.log(res._id);
-    })
-  };
+profilePreloadOnStart();
 
- profilePreloadOnStart();
-  
-  
 // function apitest () {
 //   fetch (`${config.baseUrl}/cards`, {
 //     headers: config.headers })
@@ -125,31 +145,29 @@ export function profilePreloadOnStart () {
 
 // apitest();
 
+// .then((data) => {
+//   return(data.cohort);
+// })
+// .catch((err) => {
+//   console.log(err);
+// });
 
+// console.log(username);
 
-    // .then((data) => {
-    //   return(data.cohort); 
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // }); 
+// function apiUserRename () {
+//   fetch (`${config.baseUrl}/users/me`, {
+//     method: 'POST',
+//     headers: config.headers,
+//     body: JSON.stringify({
+//       name: 1,
+//       about: 1
+//     })
+//   })
+//   .then(res => console.log(res));
+//   .catch((err) => {
+//         console.log(err);
+//       });
 
-  // console.log(username);
+// }
 
-  // function apiUserRename () {
-  //   fetch (`${config.baseUrl}/users/me`, {
-  //     method: 'POST',
-  //     headers: config.headers,
-  //     body: JSON.stringify({
-  //       name: 1,
-  //       about: 1
-  //     })
-  //   })
-  //   .then(res => console.log(res));
-  //   .catch((err) => {
-  //         console.log(err);
-  //       }); 
-     
-  // }
-
-  // apiUserRename()
+// apiUserRename()
