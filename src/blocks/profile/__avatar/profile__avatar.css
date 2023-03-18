@@ -2,6 +2,7 @@
   border-radius: 50%;
   width: 120px;
   height: 120px;
+  object-fit: cover;
 }
 
 @media screen and (max-width: 1070px) {
@@ -9,3 +10,9 @@
     margin: 0 auto 23px auto;
   }
 }
+
+.profile__avatar:hover + .profile__avatar-button {
+  cursor: pointer;
+  visibility: visible;
+}
+

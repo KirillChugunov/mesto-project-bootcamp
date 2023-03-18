@@ -68,9 +68,7 @@ function apiAddCardPost(name, link) {
       link: link,
     }),
   })
-    .then((res) => {
-      return res.json();
-    })
+  .then(checkResponse(res))
     .then((res) => {
       createCard(res, res.owner._id);
       closePopup(PopupElement);
@@ -91,9 +89,7 @@ export function apiCardDelite(cardID) {
   fetch(`${config.baseUrl}/cards/${cardID}`, {
     method: "DELETE",
     headers: config.headers,
-  }).then((res) => {
-    return res.json();
-  })
+  }).then(checkResponse(res))
   .then((res) => {
     const deletingCard = document.getElementById(`${cardID}`)
     deletingCard.remove()});
@@ -116,7 +112,7 @@ function apiLikeAdd(cardID, LikeButton) {
 
   .then((res) => {
   LikeButton.classList.add("elements__heart-button_active");
-   return res.json(); })
+  checkResponse(res) })
   .then((res) => {updateLikeCount(res.likes.length, cardID)});
 }
 
@@ -128,7 +124,7 @@ function apiLikeDelete(cardID, LikeButton) {
 
   .then((res) => {
   LikeButton.classList.remove("elements__heart-button_active");
-  return res.json();
+  checkResponse(res);
   })
 
   .then((res) => {updateLikeCount(res.likes.length, cardID)});

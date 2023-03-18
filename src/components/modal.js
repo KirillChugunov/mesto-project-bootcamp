@@ -6,6 +6,9 @@ import {
   PopupFormSubtitle,
   popupEditProfile,
   config,
+  ProfileAvatar,
+  profileAvatarInputValue,
+  profileAvatarEditPopup
 } from "../index.js";
 ////////////////////Функция открытия попапа////////////////////
 export function openPopup(popup) {
@@ -60,4 +63,23 @@ function closeByEscape(e) {
     const popup = document.querySelector(".popup_opened");
     closePopup(popup);
   }
+}
+
+////////////////////////Сабмит попапа изображения:
+export function handleSubmitAvatarEditForm(e) {
+  e.preventDefault();
+  apiAvatarPatch(profileAvatarInputValue.value);
+  closePopup(profileAvatarEditPopup);
+}
+
+function apiAvatarPatch(avatar)  {
+  fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: "PATCH",
+    headers: config.headers,
+    body: JSON.stringify({
+      avatar: avatar,
+    }),
+  })
+  .then((res) => {return res.json()})
+  .then((res) => {(ProfileAvatar.src = res.avatar)})
 }

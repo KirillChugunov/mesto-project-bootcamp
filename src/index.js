@@ -3,6 +3,7 @@ import {
   openPopup,
   closePopup,
   handleSubmitTitleForm,
+  handleSubmitAvatarEditForm,
 } from "./components/modal.js";
 import { gridBuilder, addNewCard, createCard } from "./components/card.js";
 import { enableValidation } from "./components/validate.js";
@@ -13,7 +14,7 @@ export const popupEditProfile = document.querySelector(".popup__profile-edit");
 const ButtonEditProfile = document.querySelector(".profile__edit-button");
 const PopupEditCloseButton = popupEditProfile.querySelector(".popup__close");
 export const ProfileTitle = document.querySelector(".profile__title");
-const ProfileAvatar = document.querySelector(".profile__avatar");
+export const ProfileAvatar = document.querySelector(".profile__avatar");
 export const ProfileSubtitle = document.querySelector(".profile__subtitle");
 export const PopupFormTitle = document.querySelector("#input__title");
 export const PopupFormSubtitle = document.querySelector("#input__subtitle");
@@ -37,7 +38,20 @@ export const validationConfig = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 };
+export const profileAvatarEditButton = document.querySelector(".profile__avatar-button");
+export const profileAvatarEditPopup = document.querySelector(".popup__avatar-edit");
+export const profileAvatarEditCloseButton = document.querySelector(".popup__close");
+export const profileAvatarInputValue = document.querySelector("#input__avatar");
 
+/////////////////////Вызов попапа редактирования аватара//////////////////
+profileAvatarEditButton.addEventListener ("click", function () {
+  openPopup(profileAvatarEditPopup);
+})
+profileAvatarEditCloseButton.addEventListener("click", function (){
+  closePopup(profileAvatarEditPopup)
+})
+
+profileAvatarEditPopup.addEventListener("submit", handleSubmitAvatarEditForm)
 /////////////////////ВЫЗОВ ПЕРВОГО ПОПАПА////////////////////////////
 ButtonEditProfile.addEventListener("click", function () {
   openPopup(popupEditProfile);
@@ -88,11 +102,6 @@ export const config = {
   },
 };
 
-// Promise.all([profilePreloadOnStart(), getCardsFromApi()]).then(([userInfo, userCards]) => {
-//     ProfileTitle.textContent = userInfo.name,
-//     ProfileSubtitle.textContent = userInfo.about
-//     ProfileAvatar.src = userInfo.avatar;})
-
 Promise.all([profilePreloadOnStart(), getCardsFromApi()]).then(
   ([user, cardsMassive]) => {
     (ProfileTitle.textContent = user.name),
@@ -103,10 +112,6 @@ Promise.all([profilePreloadOnStart(), getCardsFromApi()]).then(
     });
   }
 );
-//     res.forEach((cards) => {
-//       createCard(cards, userInfo._id)
-//     });
-// })
 
 function getCardsFromApi() {
   return fetch(`${config.baseUrl}/cards`, {
@@ -114,11 +119,6 @@ function getCardsFromApi() {
   }).then((res) => {
     return res.json();
   });
-  // .then((res) => {
-  //   res.forEach((card) => {
-  //     createCard(card);
-  //   })
-  // })
 }
 
 /////////////////Функция загрузки данных с сервера при загрузке страницы
@@ -128,46 +128,7 @@ export function profilePreloadOnStart() {
   }).then((res) => {
     return res.json();
   });
-  // .then((res) => {
-  //   ProfileTitle.textContent = res.name,
-  //   ProfileSubtitle.textContent = res.about
-  //   ProfileAvatar.src = res.avatar;
-  // })
 }
 
 profilePreloadOnStart();
 
-// function apitest () {
-//   fetch (`${config.baseUrl}/cards`, {
-//     headers: config.headers })
-//   .then(res => console.log(res))
-// }
-
-// apitest();
-
-// .then((data) => {
-//   return(data.cohort);
-// })
-// .catch((err) => {
-//   console.log(err);
-// });
-
-// console.log(username);
-
-// function apiUserRename () {
-//   fetch (`${config.baseUrl}/users/me`, {
-//     method: 'POST',
-//     headers: config.headers,
-//     body: JSON.stringify({
-//       name: 1,
-//       about: 1
-//     })
-//   })
-//   .then(res => console.log(res));
-//   .catch((err) => {
-//         console.log(err);
-//       });
-
-// }
-
-// apiUserRename()

@@ -6,7 +6,11 @@ export const config = {
   }
 }
 
-fetch ("${baseurl.config}/users/me", {
-  headers{headers.config}
-})
- .then((res) => { console.log(res)});
+export function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`${res.status} - error`)
+}
+
+//.then(checkResponse(res))
