@@ -29,7 +29,7 @@ export function buildcard(element, userId) {
     openPopup(PopupBigImg);
     const BigImg = document.querySelector(".img-popup__figure");
     BigImg.src = PlaceImg.src;
-    const BigCaption = document.querySelector(".img-popupтз__caption");
+    const BigCaption = document.querySelector(".img-popup__caption");
     BigCaption.textContent = element.name;
   });
   // Нашли кнопку удаления
@@ -68,7 +68,9 @@ function apiAddCardPost(name, link) {
       link: link,
     }),
   })
-  .then(checkResponse(res))
+    .then((res) => {
+      return res.json();
+    })
     .then((res) => {
       createCard(res, res.owner._id);
       closePopup(PopupElement);
@@ -89,7 +91,9 @@ export function apiCardDelite(cardID) {
   fetch(`${config.baseUrl}/cards/${cardID}`, {
     method: "DELETE",
     headers: config.headers,
-  }).then(checkResponse(res))
+  }).then((res) => {
+    return res.json();
+  })
   .then((res) => {
     const deletingCard = document.getElementById(`${cardID}`)
     deletingCard.remove()});
@@ -112,7 +116,7 @@ function apiLikeAdd(cardID, LikeButton) {
 
   .then((res) => {
   LikeButton.classList.add("elements__heart-button_active");
-  checkResponse(res) })
+   return res.json(); })
   .then((res) => {updateLikeCount(res.likes.length, cardID)});
 }
 
@@ -124,7 +128,7 @@ function apiLikeDelete(cardID, LikeButton) {
 
   .then((res) => {
   LikeButton.classList.remove("elements__heart-button_active");
-  checkResponse(res);
+  return res.json();
   })
 
   .then((res) => {updateLikeCount(res.likes.length, cardID)});
