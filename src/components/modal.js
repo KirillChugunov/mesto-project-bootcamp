@@ -1,15 +1,5 @@
-import {
-  fullDocument,
-  ProfileTitle,
-  PopupFormTitle,
-  ProfileSubtitle,
-  PopupFormSubtitle,
-  popupEditProfile,
-  config,
-  ProfileAvatar,
-  profileAvatarInputValue,
-  profileAvatarEditPopup
-} from "../index.js";
+import { fullDocument } from "./data.js";
+
 ////////////////////Функция открытия попапа////////////////////
 export function openPopup(popup) {
   popup.classList.add("popup_opened");
@@ -24,62 +14,18 @@ export function openPopup(popup) {
 ////////////////////Функция закрытия попапа/////////////////////////
 export function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  PopupFormTitle.value = "";
-  PopupFormSubtitle.value = "";
+  const clearingFormInput = popup.querySelectorAll(".popup__input-clear");
+  clearingFormInput.value = "";
   fullDocument.removeEventListener("keydown", function (e) {
     if (e.key === "Escape") {
       closePopup(popup);
     }
   });
 }
-
-//////////////////////////САМБИТ ПЕРВОГО ПОПАПА////////////////////////////
-export function handleSubmitTitleForm(e) {
-  e.preventDefault();
-  apiProfilePatch(PopupFormTitle.value, PopupFormSubtitle.value);
-  closePopup(popupEditProfile);
-}
-//////////Функция отправки данных профайла на сервер
-function apiProfilePatch(name, about) {
-  fetch(`${config.baseUrl}/users/me`, {
-    method: "PATCH",
-    headers: config.headers,
-    body: JSON.stringify({
-      name: name,
-      about: about,
-    }),
-  })
-    .then((res) => {
-      return res.json();
-    })
-    .then((res) => {
-      (ProfileTitle.textContent = res.name),
-        (ProfileSubtitle.textContent = res.about);
-    });
-}
-
+/////////////////Функция закрытия попапа при нажатии Escape
 function closeByEscape(e) {
   if (e.key === "Escape") {
     const popup = document.querySelector(".popup_opened");
     closePopup(popup);
   }
-}
-
-////////////////////////Сабмит попапа изображения:
-export function handleSubmitAvatarEditForm(e) {
-  e.preventDefault();
-  apiAvatarPatch(profileAvatarInputValue.value);
-  closePopup(profileAvatarEditPopup);
-}
-
-function apiAvatarPatch(avatar)  {
-  fetch(`${config.baseUrl}/users/me/avatar`, {
-    method: "PATCH",
-    headers: config.headers,
-    body: JSON.stringify({
-      avatar: avatar,
-    }),
-  })
-  .then((res) => {return res.json()})
-  .then((res) => {(ProfileAvatar.src = res.avatar)})
 }

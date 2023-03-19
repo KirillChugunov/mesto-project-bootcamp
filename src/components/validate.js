@@ -1,4 +1,4 @@
-import { validationConfig, fullDocument } from "../index.js";
+import { validationConfig } from "./data.js";
 //Проверка валидности элемента
 export function checkInputValidity(
   formElement,

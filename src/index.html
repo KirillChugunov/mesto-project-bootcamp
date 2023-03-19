@@ -15,8 +15,8 @@
     <main class="main">
       <section class="profile">
         <div class="profile__avatar-container">
-        <img class="profile__avatar" src="<%=require('./images/imageJac-iv.jpg')%>" alt="изображение Жак-Ив Кусто" />
-        <button class="profile__avatar-button"></button>
+          <img class="profile__avatar" src="<%=require('./images/imageJac-iv.jpg')%>" alt="изображение Жак-Ив Кусто" />
+          <button class="profile__avatar-button"></button>
         </div>
         <div class="profile__info">
           <h1 class="profile__title"></h1>
@@ -34,8 +34,8 @@
             <div class="elements__discription">
               <h2 class="elements__caption">Карачаевск</h2>
               <div class="elements__likes">
-              <button type="button" class="elements__heart-button"></button>
-              <p class="elements__likes-count">2</p>
+                <button type="button" class="elements__heart-button"></button>
+                <p class="elements__likes-count">2</p>
               </div>
             </div>
           </div>
@@ -51,9 +51,8 @@
       <button class="popup__close popup__close_edit-avatar" type="reset"></button>
       <h3 class="popup__legend">Обновить аватар</h3>
       <form class="popup__form" novalidate>
-        <input type="url" class="popup__input" id="input__avatar" placeholder="Ссылка на аватар" required minlength="09"
->
-        <span class="popup__error" id="input__avatar-error"></span>
+        <input type="url" class="popup__input popup__input-clear" id="input__avatar" placeholder="Ссылка на аватар"
+          required minlength="09"> <span class="popup__error" id="input__avatar-error"></span>
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
     </div>
@@ -63,11 +62,11 @@
       <button class="popup__close popup__close_edit-profile" type="reset"></button>
       <h3 class="popup__legend">Редактировать профиль</h3>
       <form class="popup__form" novalidate>
-        <input type="text" class="popup__input" id="input__title" placeholder="Имя" required minlength="09"
-          maxlength="40">
+        <input type="text" class="popup__input popup__input-clear" id="input__title" placeholder="Имя" required
+          minlength="09" maxlength="40" pattern="^[а-яА-ЯёЁa-zA-Z0-9]+$">
         <span class="popup__error" id="input__title-error"></span>
-        <input type="text" placeholder="О себе" class="popup__input" id="input__subtitle" required minlength="2"
-          maxlength="200">
+        <input type="text" placeholder="О себе" class="popup__input popup__input-clear" id="input__subtitle" required
+          minlength="2" maxlength="200" pattern="^[а-яА-ЯёЁa-zA-Z0-9]+$">
         <span class="popup__error" id="input__subtitle-error"></span>
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
@@ -78,10 +77,11 @@
       <button class="popup__close" type="button"></button>
       <h3 class="popup__legend">Новое место</h3>
       <form class="popup__form" novalidate>
-        <input type="text" class="popup__input form__field_elements_title" id="input__img-caption"
-          placeholder="Название" required minlength="2" maxlength="40" />
+        <input type="text" class="popup__input form__field_elements_title popup__input-clear" id="input__img-caption"
+          placeholder="Название" required minlength="2" maxlength="40" pattern="^[а-яА-ЯёЁa-zA-Z0-9]+$">
         <span class="popup__error" id="input__img-caption-error"></span>
-        <input type="url" placeholder="Ссылка на картинку" class="popup__input" id="input__img-link" required />
+        <input type="url" placeholder="Ссылка на картинку" class="popup__input popup__input-clear" id="input__img-link"
+          required />
         <span class="popup__error" id="input__img-link-error"></span>
         <button class="popup__submit elemnt__submit" type="submit">Сохранить</button>
       </form>
