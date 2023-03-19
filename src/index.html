@@ -63,10 +63,10 @@
       <h3 class="popup__legend">Редактировать профиль</h3>
       <form class="popup__form" novalidate>
         <input type="text" class="popup__input popup__input-clear" id="input__title" placeholder="Имя" required
-          minlength="09" maxlength="40" pattern="^[а-яА-ЯёЁa-zA-Z0-9]+$">
+          minlength="09" maxlength="40" pattern="^[а-яА-ЯёЁa-zA-Z0-9\s]+$">
         <span class="popup__error" id="input__title-error"></span>
         <input type="text" placeholder="О себе" class="popup__input popup__input-clear" id="input__subtitle" required
-          minlength="2" maxlength="200" pattern="^[а-яА-ЯёЁa-zA-Z0-9]+$">
+          minlength="2" maxlength="200" pattern="^[а-яА-ЯёЁa-zA-Z0-9\s]+$">
         <span class="popup__error" id="input__subtitle-error"></span>
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
@@ -74,11 +74,11 @@
   </div>
   <div class="popup popup__add-element">
     <div class="popup__container">
-      <button class="popup__close" type="button"></button>
+      <button class="popup__close" type="button"></button>    
       <h3 class="popup__legend">Новое место</h3>
       <form class="popup__form" novalidate>
         <input type="text" class="popup__input form__field_elements_title popup__input-clear" id="input__img-caption"
-          placeholder="Название" required minlength="2" maxlength="40" pattern="^[а-яА-ЯёЁa-zA-Z0-9]+$">
+          placeholder="Название" required minlength="2" maxlength="40" pattern="^[а-яА-ЯёЁa-zA-Z0-9\s]+$">
         <span class="popup__error" id="input__img-caption-error"></span>
         <input type="url" placeholder="Ссылка на картинку" class="popup__input popup__input-clear" id="input__img-link"
           required />
