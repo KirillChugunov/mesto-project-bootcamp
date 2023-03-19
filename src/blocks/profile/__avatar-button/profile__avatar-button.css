@@ -1,0 +1,20 @@
+.profile__avatar-button {
+  width: 120px;
+  height: 120px;
+  background-color: transparent;
+  background-image: url(../../../images/Vectoravatar-edit-button.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  align-self: center;
+  padding: 0;
+  position: relative;
+  top: -124px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.8);
+  visibility: hidden;
+}
+
+.profile__avatar-button:hover {
+  cursor: pointer;
+  visibility: visible;
+}

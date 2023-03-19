@@ -1,108 +1,118 @@
-console.log("I AM ALIVE");
 import "./pages/index.css";
-import {
-  openPopup,
-  closePopup,
-  handleSubmitTitleForm,
-} from "./components/modal.js";
-import { gridBuilder, addNewCard } from "./components/card.js";
+import { openPopup, closePopup } from "./components/modal.js";
+import { createCard } from "./components/card.js";
 import { enableValidation } from "./components/validate.js";
+import {
+  profilePreloadOnStart,
+  getCardsFromApi,
+  renderLoading,
+  apiProfilePatch,
+  apiAvatarPatch,
+  apiAddCardPost,
+  renderError
+} from "./components/api.js";
+import {
+  profileAvatarEditButton,
+  profileAvatarEditCloseButton,
+  buttonAddImg,
+  PopupEditCloseButton,
+  popupElementCloseButton,
+  PopupEditProfileForm,
+  placeImgCloseButton,
+  popupElement,
+  profileAvatarEditPopup,
+  buttonEditProfile,
+  popupFormSubtitle,
+  validationConfig,
+  profileTitle,
+  profileSubtitle,
+  popupFormTitle,
+  profileAvatar,
+  popupBigImg,
+  popupEditProfile,
+  profileAvatarInputValue,
+  addImgFormTitle, 
+  addCaptionFormTitle
+} from "./components/data.js";
 
-/////////////////Переменные/////////////////////////////////////
-export const fullDocument = document.querySelector(".body");
-export const popupEditProfile = document.querySelector(".popup__profile-edit");
-const ButtonEditProfile = document.querySelector(".profile__edit-button");
-const PopupEditCloseButton = popupEditProfile.querySelector(".popup__close");
-export const ProfileTitle = document.querySelector(".profile__title");
-export const ProfileSubtitle = document.querySelector(".profile__subtitle");
-export const PopupFormTitle = popupEditProfile.querySelector("#input__title");
-export const PopupFormSubtitle =
-  popupEditProfile.querySelector("#input__subtitle");
-const ButtonAddProfile = document.querySelector(".profile__add-button");
-export const PopupElement = document.querySelector(".popup__add-element");
-const PopupElementCloseButton = PopupElement.querySelector(".popup__close");
-const PopupEditProfileForm = popupEditProfile.querySelector(".popup__form");
-export const PopupBigImg = document.querySelector(".img-popup");
-export const SectionElements = document.querySelector(".elements");
-export const ElementsTemplate =
-  document.querySelector("#element__template").content;
-const PlaceImgCloseButton = PopupBigImg.querySelector(".popup__close");
-export const AddImgFormTitle = document.querySelector("#input__img-caption");
-export const AddCaptionFormTitle = document.querySelector("#input__img-link");
-const AddImgbutton = PopupElement.querySelector("popup__submit");
-export const validationConfig = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__submit",
-  inactiveButtonClass: "popup__submit_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-};
-export const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
+/////////////////////Попап редактирования аватара
+profileAvatarEditButton.addEventListener("click", function () {
+  openPopup(profileAvatarEditPopup);
+});
+profileAvatarEditCloseButton.addEventListener("click", function () {
+  closePopup(profileAvatarEditPopup);
+});
+profileAvatarEditPopup.addEventListener("submit", handleSubmitAvatarEditForm);
 
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
+function handleSubmitAvatarEditForm(e) {
+  e.preventDefault();
+  renderLoading(true, profileAvatarEditPopup);
+  apiAvatarPatch(profileAvatarInputValue.value);
+  closePopup(profileAvatarEditPopup);
+}
 
-/////////////////////ВЫЗОВ ПЕРВОГО ПОПАПА////////////////////////////
-ButtonEditProfile.addEventListener("click", function () {
+/////////////////////Попап редактирования профиля:
+buttonEditProfile.addEventListener("click", function () {
   openPopup(popupEditProfile);
-  PopupFormTitle.value = ProfileTitle.textContent;
-  PopupFormSubtitle.value = ProfileSubtitle.textContent;
+  popupFormTitle.value = profileTitle.textContent;
+  popupFormSubtitle.value = profileSubtitle.textContent;
 });
-/////////////////////////ВЫЗОВ ВТОРОГО ПОПАПА//////////////////////////
-ButtonAddProfile.addEventListener("click", function () {
-  openPopup(PopupElement);
-});
-/////////////////////////ЗАКРЫТИЕ ПЕРВОГО ПОПАПА/////////////////////////
+PopupEditProfileForm.addEventListener("submit", handleSubmitTitleForm);
+
+function handleSubmitTitleForm(e) {
+  e.preventDefault();
+  renderLoading(true, popupEditProfile);
+  apiProfilePatch(popupFormTitle.value, popupFormSubtitle.value);
+  closePopup(popupEditProfile);
+}
+
 PopupEditCloseButton.addEventListener("click", function () {
   closePopup(popupEditProfile);
 });
 
-/////////////////////////ЗАКРЫТИЕ ВТОРОГО ПОПАПА/////////////////////////
-PopupElementCloseButton.addEventListener("click", function () {
-  closePopup(PopupElement);
-});
-//Листенер сабмита первого поапа
-PopupEditProfileForm.addEventListener("submit", handleSubmitTitleForm);
-
-//////////////////ДОБАВЛЕНИЕ ИЗОБРАЖЕНИЙ/////////////////////////
-
-// МАССИВ С ФОТО И ССЫЛКАМИ
-
-//////////////////////////////////////Функция для создания и возвращения карточки///////////////////////////////////
-
-PlaceImgCloseButton.addEventListener("click", function () {
-  closePopup(PopupBigImg);
+///////////////Попап добавления изображения:
+buttonAddImg.addEventListener("click", function () {
+  openPopup(popupElement);
 });
 
-gridBuilder();
-//Работает!!!!!
+popupElementCloseButton.addEventListener("click", function () {
+  closePopup(popupElement);
+});
 
-PopupElement.addEventListener("submit", addNewCard);
+popupElement.addEventListener("submit", addNewCard);
 
-///////////////////////////////////ВАЛИДАЦИЯ//////////////////////////////////////////////////
+////////////////Попап большого изображения
 
+placeImgCloseButton.addEventListener("click", function () {
+  closePopup(popupBigImg);
+});
+
+///////////////Включение валидации
 enableValidation(validationConfig);
+
+//////////////Обновление данных профиля с сервера при загрузке страницы:
+profilePreloadOnStart();
+
+/////////////Загрузка массива карт
+
+Promise.all([profilePreloadOnStart(), getCardsFromApi()])
+.then(
+  ([user, cardsMassive]) => {
+    (profileTitle.textContent = user.name),
+      (profileSubtitle.textContent = user.about);
+    profileAvatar.src = user.avatar;
+    profileAvatar.alt = `${user.name}-avatar`;
+    cardsMassive.forEach((card) => {
+      createCard(card, user._id);
+    })
+  }
+)
+.catch((error) => console.log(`${error} - ошибка`))
+ 
+    
+////////Добавление карточки из попапа
+export function addNewCard(e) {
+  e.preventDefault();
+  renderLoading(true, popupElement);
+  apiAddCardPost(addImgFormTitle.value, addCaptionFormTitle.value);
+}

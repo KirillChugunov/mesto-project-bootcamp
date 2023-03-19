@@ -1,18 +1,21 @@
 import {
-  initialCards,
-  ElementsTemplate,
-  SectionElements,
-  PopupBigImg,
-  AddCaptionFormTitle,
-  AddImgFormTitle,
-  PopupElement,
-} from "../index.js";
-import { openPopup, closePopup } from "./modal.js";
+  elementsTemplate,
+  sectionElements,
+  popupBigImg,
+} from "./data.js";
+import { openPopup} from "./modal.js";
+import {
+  removeDeleteButton,
+  myLikesUpdate,
+  cardLikeTogle,
+} from "./api.js";
 /////////////////////////////////////Функция для создания и возвращения карточки///////////////////////////////////
-export function buildcard(element) {
+
+export function buildCard(element, userId) {
   //Клонировали заготовку
-  const PlaceElement =
-    ElementsTemplate.querySelector(".elements__card").cloneNode(true);
+  const PlaceElement = elementsTemplate
+    .querySelector(".elements__card")
+    .cloneNode(true);
   //Заполнили название фото
   PlaceElement.querySelector(".elements__caption").textContent = element.name;
   //Нашли фото в карточке:
@@ -20,11 +23,13 @@ export function buildcard(element) {
   //Заполнили фото и атрибут alt
   PlaceImg.src = element.link;
   PlaceImg.alt = PlaceElement.textContent;
+  PlaceElement.id = element._id;
   //Повесили слушателя на изображение на открытие попапа
   PlaceImg.addEventListener("click", function () {
-    openPopup(PopupBigImg);
+    openPopup(popupBigImg);
     const BigImg = document.querySelector(".img-popup__figure");
     BigImg.src = PlaceImg.src;
+    BigImg.alt = `${PlaceImg.alt}-img`;
     const BigCaption = document.querySelector(".img-popup__caption");
     BigCaption.textContent = element.name;
   });
@@ -32,37 +37,28 @@ export function buildcard(element) {
   const ImgDeleteButton = PlaceElement.querySelector(
     ".elements__delete-button"
   );
-  //Повесили слушателя на удаление:
-  ImgDeleteButton.addEventListener("click", function () {
-    const CardItem = ImgDeleteButton.closest(".elements__card");
-    CardItem.remove();
-  });
+  //Удалили ненужные кнопки, повесили слушателей на нужные.
+  removeDeleteButton(
+    ImgDeleteButton,
+    userId,
+    element.owner._id,
+    PlaceElement.id
+  );
   //Нашли кнопку лайка
   const LikeButton = PlaceElement.querySelector(".elements__heart-button");
   //Повесили слушателя на лайк:
+  myLikesUpdate(element.likes, userId, LikeButton);
   LikeButton.addEventListener("click", function () {
-    LikeButton.classList.toggle("elements__heart-button_active");
+    cardLikeTogle(PlaceElement.id, LikeButton, LikesCount);
   });
+  //Нашли счетчик лайков
+  const LikesCount = PlaceElement.querySelector(".elements__likes-count");
+  LikesCount.textContent = element.likes.length;
   return PlaceElement;
 }
-
 //Функция добавления карты в верстку
-export function createCard(element) {
-  const card = buildcard(element);
-  SectionElements.prepend(card);
+export function createCard(element, ID) {
+  const card = buildCard(element, ID);
+  sectionElements.prepend(card);
 }
 
-//Добавляем карты из массива:
-export function gridBuilder() {
-  initialCards.forEach(createCard);
-}
-//Добавляем карту из попапа:
-export function addNewCard(e) {
-  e.preventDefault();
-  const card = {
-    name: AddImgFormTitle.value,
-    link: AddCaptionFormTitle.value,
-  };
-  createCard(card);
-  closePopup(PopupElement);
-}
