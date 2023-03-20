@@ -16,7 +16,7 @@ export const popupElementSubmitbutton =
   popupElement.querySelector(".popup__submit");
 export const popupElementCloseButton =
   popupElement.querySelector(".popup__close");
-export const PopupEditProfileForm =
+export const popupEditProfileForm =
   popupEditProfile.querySelector(".popup__form");
 export const popupBigImg = document.querySelector(".img-popup");
 export const sectionElements = document.querySelector(".elements");
