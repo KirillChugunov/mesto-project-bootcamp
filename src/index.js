@@ -9,7 +9,6 @@ import {
   apiProfilePatch,
   apiAvatarPatch,
   apiAddCardPost,
-  renderLoading1
 } from "./components/api.js";
 import {
   profileAvatarEditButton,
