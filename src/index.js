@@ -9,17 +9,17 @@ import {
   apiProfilePatch,
   apiAvatarPatch,
   apiAddCardPost,
-  renderError
+  renderLoading1
 } from "./components/api.js";
 import {
   profileAvatarEditButton,
   profileAvatarEditCloseButton,
   buttonAddImg,
-  PopupEditCloseButton,
-  popupElementCloseButton,
+  popupEditCloseButton,
+  popupCardCloseButton,
   popupEditProfileForm,
   placeImgCloseButton,
-  popupElement,
+  popupCard,
   profileAvatarEditPopup,
   buttonEditProfile,
   popupFormSubtitle,
@@ -32,7 +32,8 @@ import {
   popupEditProfile,
   profileAvatarInputValue,
   addImgFormTitle, 
-  addCaptionFormTitle
+  addCaptionFormTitle,
+  popups
 } from "./components/data.js";
 
 /////////////////////Попап редактирования аватара
@@ -46,17 +47,18 @@ profileAvatarEditPopup.addEventListener("submit", handleSubmitAvatarEditForm);
 
 function handleSubmitAvatarEditForm(e) {
   e.preventDefault();
-  renderLoading(true, profileAvatarEditPopup);
+  renderLoading(true, e.submitter);
   apiAvatarPatch(profileAvatarInputValue.value)
   .then((res) => {
     profileAvatar.src = res.avatar;
+    e.target.reset();
+    closePopup(profileAvatarEditPopup);
   })
   .catch((error) => console.log(`${error} - ошибка`))
    .finally((res) => {
-    renderLoading(false, profileAvatarEditPopup);
+    renderLoading(false, e.submitter);
   })
-  closePopup(profileAvatarEditPopup);
-}
+ }
 
 /////////////////////Попап редактирования профиля:
 buttonEditProfile.addEventListener("click", function () {
@@ -68,34 +70,34 @@ popupEditProfileForm.addEventListener("submit", handleSubmitTitleForm);
 
 function handleSubmitTitleForm(e) {
   e.preventDefault();
-  renderLoading(true, popupEditProfile);
+  renderLoading(true, e.submitter);
   apiProfilePatch(popupFormTitle.value, popupFormSubtitle.value)
   .then((res) => {
     (profileTitle.textContent = res.name),
       (profileSubtitle.textContent = res.about);
+      e.target.reset();
+    closePopup(popupEditProfile);
   })
   .catch((error) => console.log(`${error} - ошибка`))
   .finally((res) => {
-    renderLoading(false, popupEditProfile);
+    renderLoading(false, e.submitter)
   });
-
-  closePopup(popupEditProfile);
 }
 
-PopupEditCloseButton.addEventListener("click", function () {
+popupEditCloseButton.addEventListener("click", function () {
   closePopup(popupEditProfile);
 });
 
 ///////////////Попап добавления изображения:
 buttonAddImg.addEventListener("click", function () {
-  openPopup(popupElement);
+  openPopup(popupCard);
 });
 
-popupElementCloseButton.addEventListener("click", function () {
-  closePopup(popupElement);
+popupCardCloseButton.addEventListener("click", function () {
+  closePopup(popupCard);
 });
 
-popupElement.addEventListener("submit", addNewCard);
+popupCard.addEventListener("submit", addNewCard);
 
 ////////////////Попап большого изображения
 
@@ -106,9 +108,6 @@ placeImgCloseButton.addEventListener("click", function () {
 ///////////////Включение валидации
 enableValidation(validationConfig);
 
-//////////////Обновление данных профиля с сервера при загрузке страницы:
-profilePreloadOnStart()
-.catch((error) => console.log(`${error} - ошибка`))
 /////////////Загрузка массива карт
 
 Promise.all([profilePreloadOnStart(), getCardsFromApi()])
@@ -129,15 +128,29 @@ Promise.all([profilePreloadOnStart(), getCardsFromApi()])
 ////////Добавление карточки из попапа
 export function addNewCard(e) {
   e.preventDefault();
-  renderLoading(true, popupElement);
+  renderLoading(true, e.submitter);
   apiAddCardPost(addImgFormTitle.value, addCaptionFormTitle.value)
   .then((res) => {
     createCard(res, res.owner._id);
-    closePopup(popupElement);
   })
   .catch((error) => console.log(`${error} - ошибка`)) 
   .finally((res) => {
-    renderLoading(false, popupElement);
+    renderLoading(false, e.submitter);
   });
 }
 
+////////////Функция развешивателя слушателей на массив попапов
+function popupsAddListenersMousedown(popups) {
+  popups.forEach((popup) => {
+    popup.addEventListener('mousedown', (evt) => {
+        if (evt.target.classList.contains('popup_opened')) {
+           closePopup(popup)
+          }
+        if (evt.target.classList.contains('popup__close')) {
+           closePopup(popup)
+        }})
+    })
+  }
+popupsAddListenersMousedown(popups);
+
+  

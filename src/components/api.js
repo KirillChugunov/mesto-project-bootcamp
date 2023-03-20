@@ -12,13 +12,12 @@ export function checkResponse(res) {
   }
   return Promise.reject(`${res.status} - error`);
 }
-
-export function renderLoading(isLoading, popup) {
-  const submitterButton = popup.querySelector(".popup__submit")
+export function renderLoading(isLoading, button, buttonText='Сохранить', loadingText='Сохранение...') {
+  console.log("я отработал")
   if (isLoading) {
-    submitterButton.textContent = "Сохранение...";
+    button.textContent = loadingText
   } else {
-    submitterButton.textContent = "Сохранить";
+    button.textContent = buttonText
   }
 }
 

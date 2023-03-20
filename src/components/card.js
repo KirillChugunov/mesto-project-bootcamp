@@ -2,6 +2,8 @@ import {
   elementsTemplate,
   sectionElements,
   popupBigImg,
+  bigImg,
+  bigCaption
 } from "./data.js";
 import { openPopup} from "./modal.js";
 import {
@@ -27,10 +29,8 @@ export function buildCard(element, userId) {
   //Повесили слушателя на изображение на открытие попапа
   placeImg.addEventListener("click", function () {
     openPopup(popupBigImg);
-    const bigImg = document.querySelector(".img-popup__figure");
     bigImg.src = placeImg.src;
     bigImg.alt = `${placeImg.alt}-img`;
-    const bigCaption = document.querySelector(".img-popup__caption");
     bigCaption.textContent = element.name;
   });
   // Нашли кнопку удаления
