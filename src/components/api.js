@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-///Конфиг для передачи токена
-=======
->>>>>>> develop
 export const config = {
   baseUrl: "https://mesto.nomoreparties.co/v1/wbf-cohort-6",
   headers: {
@@ -16,13 +12,8 @@ export function checkResponse(res) {
   }
   return Promise.reject(`${res.status} - error`);
 }
-<<<<<<< HEAD
-///Изменение текста кнопки загрузки страницы
-export function renderLoading(isLoading, popup) {
-=======
 export function renderLoading(isLoading, button, buttonText='Сохранить', loadingText='Сохранение...') {
   console.log("я отработал")
->>>>>>> develop
   if (isLoading) {
     button.textContent = loadingText
   } else {
@@ -54,21 +45,7 @@ export function apiAddCardPost(name, link) {
    .then((res) => checkResponse(res))
 }
 
-<<<<<<< HEAD
-//////////////Удаление и слушатель кнопки Delete
-export function removeDeleteButton(ImgDeleteButton, userId, ownerID, cardID) {
-  if (userId != ownerID) {
-    ImgDeleteButton.remove();
-  } else {
-    ImgDeleteButton.addEventListener("click", function () {
-      apiCardDelete(cardID);
-    })
-  }
-}
-///Удаление карточки из Delete
-=======
 ///Удаление карточки с сервера
->>>>>>> develop
 export function apiCardDelete(cardID) {
   return fetch(`${config.baseUrl}/cards/${cardID}`, {
     method: "DELETE",
@@ -104,11 +81,7 @@ export function apiProfilePatch(name, about) {
     }),
   })
    .then((res) => checkResponse(res))
-<<<<<<< HEAD
-}
-=======
   }
->>>>>>> develop
 ////Изменение автара
 export function apiAvatarPatch(avatar) {
   return fetch(`${config.baseUrl}/users/me/avatar`, {

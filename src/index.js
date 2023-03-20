@@ -46,21 +46,8 @@ profileAvatarEditCloseButton.addEventListener("click", function () {
 profileAvatarEditPopup.addEventListener("submit", handleSubmitAvatarEditForm);
 
 function handleSubmitAvatarEditForm(e) {
-  e.preventDefault();
-<<<<<<< HEAD
-  renderLoading(true, profileAvatarEditPopup);
-  apiAvatarPatch(profileAvatarInputValue.value)
-  .then((res) => {
-    profileAvatar.src = res.avatar;
-  })
-  .catch((error) => console.log(`${error} - ошибка`))
-   .finally((res) => {
-    renderLoading(false, profileAvatarEditPopup);
-  });
-  closePopup(profileAvatarEditPopup);
-}
-=======
-  renderLoading(true, e.submitter);
+  e.preventDefault()
+  renderLoading(true, e.submitter)
   apiAvatarPatch(profileAvatarInputValue.value)
   .then((res) => {
     profileAvatar.src = res.avatar;
@@ -72,7 +59,6 @@ function handleSubmitAvatarEditForm(e) {
     renderLoading(false, e.submitter);
   })
  }
->>>>>>> develop
 
 /////////////////////Попап редактирования профиля:
 buttonEditProfile.addEventListener("click", function () {
@@ -84,23 +70,11 @@ popupEditProfileForm.addEventListener("submit", handleSubmitTitleForm);
 
 function handleSubmitTitleForm(e) {
   e.preventDefault();
-<<<<<<< HEAD
-  renderLoading(true, popupEditProfile);
-=======
   renderLoading(true, e.submitter);
->>>>>>> develop
   apiProfilePatch(popupFormTitle.value, popupFormSubtitle.value)
   .then((res) => {
     (profileTitle.textContent = res.name),
       (profileSubtitle.textContent = res.about);
-<<<<<<< HEAD
-  })
-  .catch((error) => console.log(`${error} - ошибка`))
-  .finally((res) => {
-    renderLoading(false, popupEditProfile);
-  });
-  closePopup(popupEditProfile);
-=======
       e.target.reset();
     closePopup(popupEditProfile);
   })
@@ -108,7 +82,6 @@ function handleSubmitTitleForm(e) {
   .finally((res) => {
     renderLoading(false, e.submitter)
   });
->>>>>>> develop
 }
 
 popupEditCloseButton.addEventListener("click", function () {
@@ -155,17 +128,6 @@ Promise.all([profilePreloadOnStart(), getCardsFromApi()])
 ////////Добавление карточки из попапа
 export function addNewCard(e) {
   e.preventDefault();
-<<<<<<< HEAD
-  renderLoading(true, popupElement);
-  apiAddCardPost(addImgFormTitle.value, addCaptionFormTitle.value)
-  .then((res) => {
-    createCard(res, res.owner._id);
-    closePopup(popupElement);
-  })
-  .catch((error) => console.log(`${error} - ошибка`)) 
-  .finally((res) => {
-    renderLoading(false, popupElement);
-=======
   renderLoading(true, e.submitter);
   apiAddCardPost(addImgFormTitle.value, addCaptionFormTitle.value)
   .then((res) => {
@@ -174,7 +136,6 @@ export function addNewCard(e) {
   .catch((error) => console.log(`${error} - ошибка`)) 
   .finally((res) => {
     renderLoading(false, e.submitter);
->>>>>>> develop
   });
 }
 
