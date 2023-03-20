@@ -47,7 +47,14 @@ profileAvatarEditPopup.addEventListener("submit", handleSubmitAvatarEditForm);
 function handleSubmitAvatarEditForm(e) {
   e.preventDefault();
   renderLoading(true, profileAvatarEditPopup);
-  apiAvatarPatch(profileAvatarInputValue.value);
+  apiAvatarPatch(profileAvatarInputValue.value)
+  .then((res) => {
+    profileAvatar.src = res.avatar;
+  })
+  .catch((error) => console.log(`${error} - ошибка`))
+   .finally((res) => {
+    renderLoading(false, profileAvatarEditPopup);
+  });
   closePopup(profileAvatarEditPopup);
 }
 
@@ -62,7 +69,15 @@ PopupEditProfileForm.addEventListener("submit", handleSubmitTitleForm);
 function handleSubmitTitleForm(e) {
   e.preventDefault();
   renderLoading(true, popupEditProfile);
-  apiProfilePatch(popupFormTitle.value, popupFormSubtitle.value);
+  apiProfilePatch(popupFormTitle.value, popupFormSubtitle.value)
+  .then((res) => {
+    (profileTitle.textContent = res.name),
+      (profileSubtitle.textContent = res.about);
+  })
+  .catch((error) => console.log(`${error} - ошибка`))
+  .finally((res) => {
+    renderLoading(false, popupEditProfile);
+  });
   closePopup(popupEditProfile);
 }
 
@@ -114,5 +129,13 @@ Promise.all([profilePreloadOnStart(), getCardsFromApi()])
 export function addNewCard(e) {
   e.preventDefault();
   renderLoading(true, popupElement);
-  apiAddCardPost(addImgFormTitle.value, addCaptionFormTitle.value);
+  apiAddCardPost(addImgFormTitle.value, addCaptionFormTitle.value)
+  .then((res) => {
+    createCard(res, res.owner._id);
+    closePopup(popupElement);
+  })
+  .catch((error) => console.log(`${error} - ошибка`)) 
+  .finally((res) => {
+    renderLoading(false, popupElement);
+  });
 }

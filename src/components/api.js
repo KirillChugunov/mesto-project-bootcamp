@@ -1,14 +1,4 @@
-import {
-  popupEditProfile,
-  profileTitle,
-  popupElement,
-  profileSubtitle,
-  profileAvatarEditPopup,
-  profileAvatar,
-} from "./data.js";
-import { createCard } from "./card.js";
-import { closePopup } from "./modal.js";
-
+///Конфиг для передачи токена
 export const config = {
   baseUrl: "https://mesto.nomoreparties.co/v1/wbf-cohort-6",
   headers: {
@@ -16,14 +6,14 @@ export const config = {
     "Content-Type": "application/json",
   },
 };
-
+//Проверка ответа от сервера
 export function checkResponse(res) {
   if (res.ok) {
     return res.json();
   }
   return Promise.reject(`${res.status} - error`);
 }
-
+///Изменение текста кнопки загрузки страницы
 export function renderLoading(isLoading, popup) {
   if (isLoading) {
     popup.querySelector(".popup__submit").textContent = "Сохранение...";
@@ -31,14 +21,14 @@ export function renderLoading(isLoading, popup) {
     popup.querySelector(".popup__submit").textContent = "Сохранить";
   }
 }
-
+///Загрузка информации о профиле пользователя при инициализации странцы
 export function profilePreloadOnStart() {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers,
   }).then((res) => checkResponse(res))
   .catch((error) => console.log(`${error} - ошибка`))
 }
-
+///Получение массива карточек со страницы
 export function getCardsFromApi() {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers,
@@ -46,9 +36,9 @@ export function getCardsFromApi() {
     return res.json();
   });
 }
-
+///Добавление карточки на сервер
 export function apiAddCardPost(name, link) {
-  fetch(`${config.baseUrl}/cards`, {
+  return fetch(`${config.baseUrl}/cards`, {
     method: "POST",
     headers: config.headers,
     body: JSON.stringify({
@@ -57,15 +47,8 @@ export function apiAddCardPost(name, link) {
     }),
   })
    .then((res) => checkResponse(res))
-    .then((res) => {
-      createCard(res, res.owner._id);
-      closePopup(popupElement);
-    })
-    .catch((error) => console.log(`${error} - ошибка`)) 
-    .finally((res) => {
-      renderLoading(false, popupElement);
-    });
 }
+
 //////////////Удаление и слушатель кнопки Delete
 export function removeDeleteButton(ImgDeleteButton, userId, ownerID, cardID) {
   if (userId != ownerID) {
@@ -146,7 +129,7 @@ function updateLikeCount(newLikeCount, cardID) {
 }
 ////Изменение профиля
 export function apiProfilePatch(name, about) {
-  fetch(`${config.baseUrl}/users/me`, {
+  return fetch(`${config.baseUrl}/users/me`, {
     method: "PATCH",
     headers: config.headers,
     body: JSON.stringify({
@@ -155,18 +138,10 @@ export function apiProfilePatch(name, about) {
     }),
   })
    .then((res) => checkResponse(res))
-    .then((res) => {
-      (profileTitle.textContent = res.name),
-        (profileSubtitle.textContent = res.about);
-    })
-    .catch((error) => console.log(`${error} - ошибка`))
-    .finally((res) => {
-      renderLoading(false, popupEditProfile);
-    });
 }
 ////Изменение автара
 export function apiAvatarPatch(avatar) {
-  fetch(`${config.baseUrl}/users/me/avatar`, {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: "PATCH",
     headers: config.headers,
     body: JSON.stringify({
@@ -174,12 +149,5 @@ export function apiAvatarPatch(avatar) {
     }),
   })
    .then((res) => checkResponse(res))
-    .then((res) => {
-      profileAvatar.src = res.avatar;
-    })
-    .catch((error) => console.log(`${error} - ошибка`))
-     .finally((res) => {
-      renderLoading(false, profileAvatarEditPopup);
-    });
 }
 
