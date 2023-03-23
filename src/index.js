@@ -3,21 +3,17 @@ import { openPopup, closePopup } from "./components/modal.js";
 import { createCard } from "./components/card.js";
 import { enableValidation } from "./components/validate.js";
 import {
-  profilePreloadOnStart,
+  preloadProfileOnStart,
   getCardsFromApi,
   renderLoading,
-  apiProfilePatch,
-  apiAvatarPatch,
-  apiAddCardPost,
+  patchProfileApi,
+  patchAvatarApi,
+  addApiCardPost,
 } from "./components/api.js";
 import {
   profileAvatarEditButton,
-  profileAvatarEditCloseButton,
   buttonAddImg,
-  popupEditCloseButton,
-  popupCardCloseButton,
   popupEditProfileForm,
-  placeImgCloseButton,
   popupCard,
   profileAvatarEditPopup,
   buttonEditProfile,
@@ -39,15 +35,13 @@ import {
 profileAvatarEditButton.addEventListener("click", function () {
   openPopup(profileAvatarEditPopup);
 });
-profileAvatarEditCloseButton.addEventListener("click", function () {
-  closePopup(profileAvatarEditPopup);
-});
+
 profileAvatarEditPopup.addEventListener("submit", handleSubmitAvatarEditForm);
 
 function handleSubmitAvatarEditForm(e) {
   e.preventDefault()
   renderLoading(true, e.submitter)
-  apiAvatarPatch(profileAvatarInputValue.value)
+  patchAvatarApi(profileAvatarInputValue.value)
   .then((res) => {
     profileAvatar.src = res.avatar;
     e.target.reset();
@@ -70,7 +64,7 @@ popupEditProfileForm.addEventListener("submit", handleSubmitTitleForm);
 function handleSubmitTitleForm(e) {
   e.preventDefault();
   renderLoading(true, e.submitter);
-  apiProfilePatch(popupFormTitle.value, popupFormSubtitle.value)
+  patchProfileApi(popupFormTitle.value, popupFormSubtitle.value)
   .then((res) => {
     (profileTitle.textContent = res.name),
       (profileSubtitle.textContent = res.about);
@@ -83,33 +77,19 @@ function handleSubmitTitleForm(e) {
   });
 }
 
-popupEditCloseButton.addEventListener("click", function () {
-  closePopup(popupEditProfile);
-});
-
 ///////////////Попап добавления изображения:
 buttonAddImg.addEventListener("click", function () {
   openPopup(popupCard);
 });
 
-popupCardCloseButton.addEventListener("click", function () {
-  closePopup(popupCard);
-});
-
 popupCard.addEventListener("submit", addNewCard);
-
-////////////////Попап большого изображения
-
-placeImgCloseButton.addEventListener("click", function () {
-  closePopup(popupBigImg);
-});
 
 ///////////////Включение валидации
 enableValidation(validationConfig);
 
 /////////////Загрузка массива карт
 
-Promise.all([profilePreloadOnStart(), getCardsFromApi()])
+Promise.all([preloadProfileOnStart(), getCardsFromApi()])
 .then(
   ([user, cardsMassive]) => {
     (profileTitle.textContent = user.name),
@@ -128,9 +108,11 @@ Promise.all([profilePreloadOnStart(), getCardsFromApi()])
 export function addNewCard(e) {
   e.preventDefault();
   renderLoading(true, e.submitter);
-  apiAddCardPost(addImgFormTitle.value, addCaptionFormTitle.value)
+  addApiCardPost(addImgFormTitle.value, addCaptionFormTitle.value)
   .then((res) => {
     createCard(res, res.owner._id);
+    closePopup(popupCard)
+    e.target.reset()
   })
   .catch((error) => console.log(`${error} - ошибка`)) 
   .finally((res) => {
@@ -139,7 +121,7 @@ export function addNewCard(e) {
 }
 
 ////////////Функция развешивателя слушателей на массив попапов
-function popupsAddListenersMousedown(popups) {
+function addClosePopupListeners(popups) {
   popups.forEach((popup) => {
     popup.addEventListener('mousedown', (evt) => {
         if (evt.target.classList.contains('popup_opened')) {
@@ -150,6 +132,6 @@ function popupsAddListenersMousedown(popups) {
         }})
     })
   }
-popupsAddListenersMousedown(popups);
+addClosePopupListeners(popups);
 
   

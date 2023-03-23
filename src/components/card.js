@@ -7,9 +7,9 @@ import {
 } from "./data.js";
 import { openPopup} from "./modal.js";
 import {
-  apiCardDelete,
-  apiLikeAdd,
-  apiLikeDelete
+  deleteCardApi,
+  addLikeApi,
+  deleteLikeApi
 } from "./api.js";
 /////////////////////////////////////Функция для создания и возвращения карточки///////////////////////////////////
 
@@ -47,9 +47,9 @@ export function buildCard(element, userId) {
   //Нашли кнопку лайка
   const likeButton = placeElement.querySelector(".elements__heart-button");
   //Повесили слушателя на лайк:
-  myLikesUpdate(element.likes, userId, likeButton);
+  updateMyLikes(element.likes, userId, likeButton);
   likeButton.addEventListener("click", function () {
-    cardLikeTogle(placeElement.id, likeButton, likesCount);
+    toggleCardLike(placeElement.id, likeButton, likesCount);
   });
   //Нашли счетчик лайков
   const likesCount = placeElement.querySelector(".elements__likes-count");
@@ -68,7 +68,7 @@ function removeDeleteButton(imgDeleteButton, userId, ownerID, cardID) {
     imgDeleteButton.remove();
   } else {
     imgDeleteButton.addEventListener("click", function () {
-      apiCardDelete(cardID)
+      deleteCardApi(cardID)
       .then((res) => {
         const deletingCard = document.getElementById(`${cardID}`);
         deletingCard.remove();
@@ -79,16 +79,16 @@ function removeDeleteButton(imgDeleteButton, userId, ownerID, cardID) {
 }
 
 ///Удаление/добавление лайка
-export function cardLikeTogle(cardID, likeButton) {
+export function toggleCardLike(cardID, likeButton) {
   if (likeButton.classList.contains("elements__heart-button_active")) {
-    apiLikeDelete(cardID, likeButton)
+    deleteLikeApi(cardID, likeButton)
     .then((res) => {
       likeButton.classList.remove("elements__heart-button_active");
       updateLikeCount(res.likes.length, cardID);
     })
     .catch((error) => console.log(`${error} - ошибка`))   
   } else {
-    apiLikeAdd(cardID, likeButton)
+    addLikeApi(cardID, likeButton)
     .then((res) => {
       likeButton.classList.add("elements__heart-button_active");
       updateLikeCount(res.likes.length, cardID);
@@ -97,7 +97,7 @@ export function cardLikeTogle(cardID, likeButton) {
   }
 }
 ///Функция проверки наличия моего лайка на карточке
-function myLikesUpdate(cardLikeTogles, myId, likeButton) {
+function updateMyLikes(cardLikeTogles, myId, likeButton) {
   if (cardLikeTogles.some((like) => like._id === myId)) {
     likeButton.classList.add("elements__heart-button_active");
   }

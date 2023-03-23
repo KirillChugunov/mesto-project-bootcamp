@@ -21,7 +21,7 @@ export function renderLoading(isLoading, button, buttonText='Сохранить'
   }
 }
 ///Загрузка информации о профиле пользователя при инициализации странцы
-export function profilePreloadOnStart() {
+export function preloadProfileOnStart() {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers,
   }).then((res) => checkResponse(res))
@@ -33,7 +33,7 @@ export function getCardsFromApi() {
   }).then((res) => checkResponse(res))
 }
 ///Добавление карточки на сервер
-export function apiAddCardPost(name, link) {
+export function addApiCardPost(name, link) {
   return fetch(`${config.baseUrl}/cards`, {
     method: "POST",
     headers: config.headers,
@@ -46,7 +46,7 @@ export function apiAddCardPost(name, link) {
 }
 
 ///Удаление карточки с сервера
-export function apiCardDelete(cardID) {
+export function deleteCardApi(cardID) {
   return fetch(`${config.baseUrl}/cards/${cardID}`, {
     method: "DELETE",
     headers: config.headers,
@@ -55,7 +55,7 @@ export function apiCardDelete(cardID) {
 }
 
 ///Добавили лайк чере api
-export function apiLikeAdd(cardID, LikeButton) {
+export function addLikeApi(cardID, LikeButton) {
   return fetch(`${config.baseUrl}/cards/likes/${cardID}`, {
     method: "PUT",
     headers: config.headers,
@@ -63,7 +63,7 @@ export function apiLikeAdd(cardID, LikeButton) {
   .then((res) => checkResponse(res))
 }
 ///Убрали лайк через API
-export function apiLikeDelete(cardID, LikeButton) {
+export function deleteLikeApi(cardID, LikeButton) {
   return fetch(`${config.baseUrl}/cards/likes/${cardID}`, {
     method: "DELETE",
     headers: config.headers,
@@ -71,7 +71,7 @@ export function apiLikeDelete(cardID, LikeButton) {
   .then((res) => checkResponse(res))
 }
 ////Изменение профиля
-export function apiProfilePatch(name, about) {
+export function patchProfileApi(name, about) {
   return fetch(`${config.baseUrl}/users/me`, {
     method: "PATCH",
     headers: config.headers,
@@ -83,7 +83,7 @@ export function apiProfilePatch(name, about) {
    .then((res) => checkResponse(res))
   }
 ////Изменение автара
-export function apiAvatarPatch(avatar) {
+export function patchAvatarApi(avatar) {
   return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: "PATCH",
     headers: config.headers,

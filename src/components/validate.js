@@ -39,13 +39,22 @@ export function hideInputError(formElement, inputElement, validationConfig) {
 // Стилизация/включение кнопки
 export function toggleButtonState(inputList, buttonElement, validationConfig) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(validationConfig.inactiveButtonClass);
-    buttonElement.disabled = true;
+    disableSubmitButton(buttonElement,validationConfig);
   } else {
-    buttonElement.classList.remove(validationConfig.inactiveButtonClass);
-    buttonElement.disabled = false;
+    activeSubmitButton(buttonElement,validationConfig);
   }
 }
+///Отдельный код для отключения кнопки.
+function disableSubmitButton(buttonElement,validationConfig) {
+  buttonElement.classList.add(validationConfig.inactiveButtonClass);
+  buttonElement.disabled = true;
+}
+//Отдельный код для включения кнопки.
+function activeSubmitButton(buttonElement,validationConfig) {
+  buttonElement.classList.remove(validationConfig.inactiveButtonClass);
+  buttonElement.disabled = false;
+}
+
 //Колбэк валидности
 export function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
@@ -54,6 +63,9 @@ export function hasInvalidInput(inputList) {
 }
 //Вешаем слушателей
 export function setEventListeners(formElement) {
+  formElement.addEventListener('reset', () => {
+    disableSubmitButton(buttonElement,validationConfig);
+  });
   const inputList = Array.from(
     formElement.querySelectorAll(validationConfig.inputSelector)
   );
