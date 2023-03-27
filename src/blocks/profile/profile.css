@@ -1,11 +1,11 @@
 .profile {
-  width: calc(100% - (200px + 200px));
+  width: 100%;
   margin: 0 auto 51px auto;
   display: flex;
   align-items: center;
 }
 
-@media screen and (max-width: 1070px) {
+@media screen and (max-width: 704px) {
   .profile {
     width: calc(100% - (19px + 19px));
     flex-direction: column;

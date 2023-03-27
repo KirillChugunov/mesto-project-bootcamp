@@ -2,10 +2,17 @@
   background-color: #000000;
   font-family: "Inter", "Arial", sans-serif;
   max-width: 1280px;
-  width: 100%;
-  margin: 0 auto 0 auto;
+  width: 68.75%;
+  margin: 0 auto;
   text-rendering: optimizeLegibility;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+@media screen and (max-width: 900px) {
+  .page {
+    width: 87.5%;
+    margin: 0 auto;
+  }
 }

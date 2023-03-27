@@ -8,13 +8,27 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 295px;
+  max-width:max-content;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 1280px) {
+  .profile__title {
+    font-weight: 500;
+    font-size:calc(27px + 15 * (100vw - 320px) / 960);
+    line-height: 48px;
+    max-width: 290px;
+  }
+}
+
+@media screen and (max-width: 707px) {
+  .profile__title {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 320px) {
   .profile__title {
     font-size: 27px;
     line-height: 33px;
-    text-align: center;
   }
 }
