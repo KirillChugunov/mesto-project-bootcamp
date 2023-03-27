@@ -11,7 +11,7 @@
 
 @media screen and (max-width: 1280px) {
   .popup__legend {
-    font-size:calc(22px + 2 * (100vh - 320px) / 880);
+    font-size: calc(22px + 2 * (100vh - 320px) / 880);
   }
 }
 
