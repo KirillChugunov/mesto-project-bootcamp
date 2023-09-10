@@ -23,6 +23,12 @@
 
 Доступен по адресу: https://kirillchugunov.github.io/mesto-project-bootcamp/
 
+## Локальный запуск проекта:
+
+npm install - установка необходимого окружения проекта
+npm run dev - запуск проекта в режиме разработки
+npm run build - создание "билда" проекта
+
 ## Figma:
 
 - [Ссылка на макет в Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=28212%3A2&t=AFki53U4zov4UttD-0)
